@@ -8,7 +8,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: #d1f5be;
+  color: #FDFFA3;
   background-color: #1D1128;
 
   font-synthesis: none;
@@ -23,18 +23,16 @@ nav {
 
 .genericButton:hover,.genericButton:focus {
   background-color: #034732;
-  color: #D1F5BE;
-  border-color: #D1F5BE;
+  border-color: #FDFFA3;
 }
 
 .genericButton {
   background-color: transparent;
-  color: #D1F5BE;
-  border-color: #D1F5BE;
+  border-color: #FDFFA3;
 }
 
 .pasteArea {
-  border-color: #d1f5be;
+  border-color: #FDFFA3;
 }
 
 .pasteArea:focus {
