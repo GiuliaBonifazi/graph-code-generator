@@ -1,8 +1,8 @@
 
 
 function Header({title} : {title: string}) {
-    return <div className="lg:items-center lg:content-center text-center">
-            <h1 className="font-bold text-center font lg:text-2xl">{title}</h1>
+    return <div className="items-center content-center text-center">
+            <h1 className="font-bold text-center lg:text-[2.5rem]">{title}</h1>
         </div>;
 }
 
