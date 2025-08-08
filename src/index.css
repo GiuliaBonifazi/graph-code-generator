@@ -25,6 +25,11 @@ nav {
   background-color: #2DAAE9;
 }
 
+.genericButton:disabled {
+    background-color: transparent;
+    color: #30373B;
+}
+
 .genericButton {
   background-color: transparent;
 }
