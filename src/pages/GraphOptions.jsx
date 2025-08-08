@@ -6,19 +6,22 @@ import GenericButton from "./components/GenericButton"
 
 
 const GraphOptions = () => {
-    const [currColor, setCurrColor] = useState(null)
+    const [currColor, setCurrColor] = useState("#000000")
     const [pickedColors, setPickedColors] = useState([])
 
     const onConfirmPickedColor = (event) => {
-        if (currColor != null) {
+        if (currColor != null && !pickedColors.includes(currColor)) {
             setPickedColors([...pickedColors, currColor])
-            console.log(pickedColors)
             setCurrColor(null)
         }
     }
 
     const onNewPickedColor = (event) => {
         setCurrColor(event.target.value)
+    }
+
+    const onRemoveColor = (color) => {
+        setPickedColors(pickedColors.filter((element) => element != color))
     }
 
     return <>
@@ -33,8 +36,12 @@ const GraphOptions = () => {
                 <GenericButton label="Confirm color" dims="h-fit p-2 w-fit" onClick={onConfirmPickedColor}/>
                 <div id="picked-colors-container" className="grid grid-flow-row grid-cols-5 gap-4">
                     {
-                        pickedColors.map((color, index) => {
-                            return <PickedColour key={"colour-number-" + index} color={color}></PickedColour>
+                        pickedColors.map((color) => {
+                            return <PickedColour 
+                                key={color} 
+                                color={color} 
+                                onRemove={onRemoveColor}>
+                            </PickedColour>
                         })
                     }
                 </div>
