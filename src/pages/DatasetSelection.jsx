@@ -13,7 +13,7 @@ const DatasetSelection = () => {
 
     return <>
         <Title title='Upload your dataset'/>
-        <div className='lg:flex lg:w-fill lg:content-center lg:justify-center mt-8 space-x-4'>
+        <div className='lg:flex lg:w-fill lg:content-center lg:justify-center space-x-4'>
             <ul className='w-fit h-fit'>
                 <li><GenericButton label='Paste' dims={buttonDims} onClick={() => setPageState(() => DatasetSelectionStates.PASTE)}/></li>
                 <li><GenericButton label='Upload' dims={buttonDims} onClick={() => setPageState(() => DatasetSelectionStates.UPLOAD)}/></li>

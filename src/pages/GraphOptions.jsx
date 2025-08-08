@@ -30,12 +30,12 @@ const GraphOptions = () => {
         <Title title="Graph options"></Title>
         {/* TODO DATA PREVIEW */}
         <div className="flex justify-center items-center">
-            <Menu as="div">
+            <Menu as="div" className="relative">
                 <MenuButton className="genericButton border rounded h-fit p-2 w-48 text-center">
                     {graphType == null ? "Pick graph type" : graphType}
                 </MenuButton>
 
-                <MenuItems className="flex flex-col space-y-2">
+                <MenuItems className="absolute z-50 flex flex-col space-y-2">
                     {
                         ["Line graph", "Bar graph", "Pie chart"].map((element) => {
                             return <MenuItem >
@@ -51,6 +51,7 @@ const GraphOptions = () => {
             </Menu>
         </div>
         <form className="flex flex-col justify-start space-y-4 pl-[10rem] pr-0">
+            
             <GenericInput labelText="X axis data" id="x-axis-data" type="text"></GenericInput>
             <GenericInput labelText="Y axis data" id="y-axis-data" type="text"></GenericInput>
             <div id="picked-colors-container" className="flex flex-row w-fit space-x-8">

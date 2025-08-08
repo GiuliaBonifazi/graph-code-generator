@@ -8,8 +8,8 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: #FDFFA3;
-  background-color: #1D1128;
+  color: #021620;
+  background-color: #F2FAFF;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -18,23 +18,21 @@
 }
 
 nav {
-  background-color: #034732;
+  background-color: #DDF2FF;
 }
 
 .genericButton:hover,.genericButton:focus {
-  background-color: #034732;
-  border-color: #FDFFA3;
+  background-color: #2DAAE9;
 }
 
 .genericButton {
   background-color: transparent;
-  border-color: #FDFFA3;
 }
 
 .pasteArea {
-  border-color: #FDFFA3;
+  
 }
 
 .pasteArea:focus {
-  background-color: #034732;
+  background-color: #2DAAE9;
 }
