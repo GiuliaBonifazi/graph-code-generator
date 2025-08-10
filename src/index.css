@@ -21,6 +21,15 @@ nav {
   background-color: #DDF2FF;
 }
 
+h2 {
+  font-weight: bold;
+}
+
+pre {
+  white-space: pre-wrap; 
+  word-break: keep-all;
+}
+
 .genericButton:hover,.genericButton:focus {
   background-color: #2DAAE9;
 }
@@ -31,11 +40,11 @@ nav {
 }
 
 .genericButton {
-  background-color: transparent;
+  background-color: #DDF2FF;
 }
 
 .pasteArea {
-  
+  background-color: #DDF2FF
 }
 
 .pasteArea:focus {
