@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* TODO remove */
-/* 034732 (dark green) -d1f5be(green) -1d1128(purple) */
-
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -49,4 +46,12 @@ pre {
 
 .pasteArea:focus {
   background-color: #2DAAE9;
+}
+
+.warningBackground {
+  background-color: #FFECC2;
+}
+
+.warningHighlight {
+  background-color: #FFB30F;
 }

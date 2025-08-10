@@ -1,5 +1,6 @@
 import Title from "./components/Title"
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
+import CriterionDisclosure from "./components/CriterionDisclosure"
+import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 
 const GraphReview = () => {
     return <>
@@ -26,6 +27,19 @@ const GraphReview = () => {
                     <textarea className="pasteArea border rounded resize-y min-w-[20rem] h-40" placeholder="Prompt goes here..."></textarea>
                 </div>
             </div>
+            <Disclosure>
+                <DisclosureButton>Check</DisclosureButton>
+                <DisclosurePanel>
+                    {
+                        [   {criterion: "X", explanation: "Maperche", level: "E"},
+                            {criterion: "Y", explanation: "banane", level:"W"},
+                            {criterion: "Z", explanation: "sì", level:"C"}
+                        ].map((element) => {
+                            return <CriterionDisclosure criterion={element.criterion} explanation={element.explanation}/>
+                        })
+                    }
+                </DisclosurePanel>
+            </Disclosure>
         </div>
     </>
 }
