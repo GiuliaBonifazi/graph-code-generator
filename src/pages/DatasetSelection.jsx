@@ -1,15 +1,12 @@
 import { useState } from 'react'
 import Title from './components/Title'
-import GenericButton from './components/GenericButton'
-import {datasetSelectionDefaultState, datasetSelectionStates} from './states/PageStates'
 import { useNavigate } from 'react-router-dom'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
+import {STATE_PASTE, STATE_UPLOAD} from "./states/DatasetSelectionStates"
 
 
 const DatasetSelection = () => {
-    const [pageState, setPageState] = useState(datasetSelectionDefaultState)
-    const buttonDims = "h-fit p-2 w-24 mb-2"
-    const inputAreasDims = "lg:w-[40rem] lg:h-[25rem]"
+    const [pageState, setPageState] = useState(STATE_PASTE)
     const navigate = useNavigate()
 
     return <>
@@ -23,27 +20,27 @@ const DatasetSelection = () => {
                 navigate('/graph-options/')
             }
         }>
-            <TabGroup className="w-full h-fit">
+            <TabGroup >
                 <TabList className="space-x-2">
-                    <Tab  className="rounded border genericButton w-fit h-fit p-2" onClick={() => setPageState(() => "Paste")}>Paste</Tab>
-                    <Tab  className="rounded border genericButton w-fit h-fit p-2" onClick={() => setPageState(() => "Upload")}>Upload</Tab>
+                    <Tab  className="rounded border genericButton w-fit h-fit p-2" onClick={() => setPageState(() => STATE_PASTE)}>{STATE_PASTE}</Tab>
+                    <Tab  className="rounded border genericButton w-fit h-fit p-2" onClick={() => setPageState(() => STATE_UPLOAD)}>{STATE_UPLOAD}</Tab>
                 </TabList>
-                <TabPanels className="border rounded w-full">
-                    <TabPanel>
+                <TabPanels className="border rounded lg:w-[40rem] lg:h-[25rem] min-w-[20rem] pasteArea">
+                    <TabPanel className="w-full h-full">
                         <textarea 
                             id="pasteTextArea"
-                            className={'pasteArea border resize-none ' + inputAreasDims}
+                            className='pasteArea resize-y w-full h-full'
                             placeholder="Paste your dataset here" 
                         />
                     </TabPanel>
-                    <TabPanel>
+                    <TabPanel className="w-full h-full">
                         <div
-                            className={inputAreasDims + ' flex border pasteArea content-center justify-center'}>
+                            className='w-full h-full flex border pasteArea content-center justify-center'>
                             <input 
                                 type="file" 
                                 id="uploadFileInput" 
                                 accept=".csv, .tsv, .txt"
-                                className='text-center h-fit genericButton border rounded h-fit w-fit p-2 self-center'
+                                className='text-center genericButton border rounded h-fit w-fit p-2 self-center'
                             />
                         </div>
                     </TabPanel>
