@@ -11,9 +11,9 @@ const DatasetSelection = () => {
 
     return <>
         <Title title='Upload your dataset'/>
-        <div className='lg:flex lg:w-fill lg:content-center lg:justify-center space-x-4'>
+        <div className='lg:flex lg:w-fill lg:content-center lg:justify-center space-x-4 mx-4 lg:mx-0'>
         <form 
-        className='lg:flex lg:flex-col lg:justify-center'
+        className='flex flex-col justify-center'
         onSubmit={
             (event) => {
                 event.preventDefault()
@@ -25,7 +25,7 @@ const DatasetSelection = () => {
                     <Tab  className="rounded border genericButton w-fit h-fit p-2" onClick={() => setPageState(() => STATE_PASTE)}>{STATE_PASTE}</Tab>
                     <Tab  className="rounded border genericButton w-fit h-fit p-2" onClick={() => setPageState(() => STATE_UPLOAD)}>{STATE_UPLOAD}</Tab>
                 </TabList>
-                <TabPanels className="border rounded lg:w-[40rem] lg:h-[25rem] min-w-[20rem] pasteArea">
+                <TabPanels className="border rounded lg:w-[40rem] h-[20rem] lg:h-[25rem] min-w-[20rem] pasteArea">
                     <TabPanel className="w-full h-full">
                         <textarea 
                             id="pasteTextArea"
