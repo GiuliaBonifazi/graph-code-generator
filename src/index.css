@@ -55,3 +55,11 @@ pre {
 .warningHighlight {
   background-color: #FFB30F;
 }
+
+.errorBackground {
+  background-color: #FFBDCD;
+}
+
+.errorHighlight {
+  background-color: #FE86A4;
+}

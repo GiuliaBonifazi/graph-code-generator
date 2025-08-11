@@ -5,7 +5,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, 
 const GraphReview = () => {
     return <>
         <Title title="Graph review"></Title>
-        <div className="w-full h-full flex flex-row items-center justify-center">
+        <div className="w-full h-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 px-4 lg:px-0 items-center justify-center">
             <div className="mx-4 lg:mx-8 flex w-full items-center flex-col space-y-2">
                 <h2 className="text-left self-start">Your graph code</h2>
                 <TabGroup className="w-full">
@@ -27,15 +27,16 @@ const GraphReview = () => {
                     <textarea className="pasteArea border rounded resize-y min-w-[20rem] h-40" placeholder="Prompt goes here..."></textarea>
                 </div>
             </div>
-            <Disclosure>
-                <DisclosureButton>Check</DisclosureButton>
-                <DisclosurePanel>
+            <Disclosure as="div" className="flex flex-col self-start mr-4">
+                <DisclosureButton className="border rounded genericButton w-fit h-fit p-2">Check criteria</DisclosureButton>
+                <DisclosurePanel className="border rounded text-left lg:min-w-[20rem]">
                     {
-                        [   {criterion: "X", explanation: "Maperche", level: "E"},
-                            {criterion: "Y", explanation: "banane", level:"W"},
-                            {criterion: "Z", explanation: "sì", level:"C"}
+                        [   {criterion: "Le banane", explanation: "Maperche", level: "E"},
+                            {criterion: "sono belle", explanation: "banane", level:"W"},
+                            {criterion: "Uffaaaa uffa", explanation: "sì", level:"C"}
                         ].map((element) => {
-                            return <CriterionDisclosure criterion={element.criterion} explanation={element.explanation}/>
+                            const id = element.criterion.replace(" ", "-")
+                            return <CriterionDisclosure key={id} id={id} level={element.level} criterion={element.criterion} explanation={element.explanation}/>
                         })
                     }
                 </DisclosurePanel>
