@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Navbar from './pages/components/Navbar';
-import DatasetSelection from './pages/DatasetSelection';
-import GraphOptions from './pages/GraphOptions';
-import GraphReview from './pages/GraphReview';
+import Navbar from './components/Navbar';
+import GraphOptions from './GraphOptions';
+import GraphReview from './GraphReview';
+import DatasetSelection from './DatasetSelection';
 
 function App() {
 
