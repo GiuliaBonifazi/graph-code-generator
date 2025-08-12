@@ -1,11 +1,12 @@
 import Title from "./components/Title"
 import GenericInput from "./components/GenericInput"
 import PickedColour from "./components/PickedColour"
+import DataPlacementInput from "./components/DataPlacementInput"
 import { useState } from "react"
 import GenericButton from "./components/GenericButton"
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react"
 import { useNavigate } from "react-router-dom"
-import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_ALL} from "./states/GraphOptionsStates"
+import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_ALL} from "./contexts/GraphTypeContext"
 
 
 const GraphOptions = () => {
@@ -61,14 +62,13 @@ const GraphOptions = () => {
                     navigate('/graph-review/')
                 }}   
                 >
-                <GenericInput labelText="X axis data" id="x-axis-data" type="text"></GenericInput>
-                <GenericInput labelText="Y axis data" id="y-axis-data" type="text"></GenericInput>
+                <DataPlacementInput type={graphType}></DataPlacementInput>
                 <div id="picked-colors-container" className="flex flex-col lg:flex-row w-full lg:space-x-4 min-h-24">
                     <div className="flex flex-row w-fit min-h-24">
                         <GenericInput labelText="Pick your colours" id="colour-input" type="color" dim="h-8 w-12 mr-8" onChange={onNewPickedColor}/>
                         <GenericButton label="Confirm color" dims="h-fit p-2 w-fit" onClick={onConfirmPickedColor}/>
                     </div>
-                    <div id="picked-colors-container" className="grid grid-flow-row w-full grid-cols-3 lg:grid-cols-5 gap-4">
+                    <div className="grid grid-flow-row w-full grid-cols-3 lg:grid-cols-5 gap-4">
                         {
                             pickedColors.map((color) => {
                                 return <PickedColour 
