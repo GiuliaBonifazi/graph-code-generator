@@ -1,6 +1,9 @@
 import { Disclosure, Menu, MenuItem, MenuItems, MenuButton} from "@headlessui/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import gpt5_query from "../model/queries/chatgpt-queries"
+import gemini_query from "../model/queries/gemini-queries"
+import deepseek_query from "../model/queries/deepseek-queries"
 
 
 function Navbar(props) {
@@ -17,10 +20,25 @@ function Navbar(props) {
                 <MenuItems className="absolute z-50 flex flex-col space-y-2">
                     {
                         props.modelAll.map((model) => {
-                            return <MenuItem>
-                                <a key={model + "menuItem"} 
+                            return <MenuItem key={model + "-menuItem"}>
+                                <a key={model + "-a"} 
                                 className="genericButton border rounded h-fit p-2 w-24 text-center"
-                                onClick={() => {setModelState(model)}}>
+                                onClick={() => {
+                                    setModelState(model)
+                                    switch (model) {
+                                        case props.modelDeepseek:
+                                            deepseek_query("Say hi back");
+                                            break;
+                                        case props.modelGpt:
+                                            gpt5_query("Say hi back");
+                                            break;
+                                        case props.modelGemini:
+                                            gemini_query("Say hi back")
+                                            break;
+                                        default:
+                                            console.log("Whoops! Pick a model")
+                                    }
+                                }}>
                                     {model}
                                 </a>
                             </MenuItem>
