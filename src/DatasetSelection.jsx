@@ -1,16 +1,13 @@
-import { useState } from 'react'
 import Title from './components/Title'
 import { useNavigate } from 'react-router-dom'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
-import {STATE_PASTE, STATE_UPLOAD} from "./states/DatasetSelectionStates"
 import useGraphFormContext from "./hooks/useGraphFormContext"
 
 
 const DatasetSelection = () => {
-    const [pageState, setPageState] = useState(STATE_PASTE)
     const navigate = useNavigate()
 
-    const {handleChange, options, canToOptions} = useGraphFormContext()
+    const {handleChange, canToOptions} = useGraphFormContext()
 
     return <>
         <Title title='Upload your dataset'/>
@@ -25,8 +22,8 @@ const DatasetSelection = () => {
         }>
             <TabGroup >
                 <TabList className="space-x-2">
-                    <Tab  className="rounded border genericButton w-fit h-fit p-2" onClick={() => setPageState(() => STATE_PASTE)}>{STATE_PASTE}</Tab>
-                    <Tab  className="rounded border genericButton w-fit h-fit p-2" onClick={() => setPageState(() => STATE_UPLOAD)}>{STATE_UPLOAD}</Tab>
+                    <Tab  className="rounded border genericButton w-fit h-fit p-2">Paste</Tab>
+                    <Tab  className="rounded border genericButton w-fit h-fit p-2">Upload</Tab>
                 </TabList>
                 <TabPanels className="border rounded lg:w-[40rem] h-[20rem] lg:h-[25rem] min-w-[20rem] pasteArea">
                     <TabPanel className="w-full h-full">

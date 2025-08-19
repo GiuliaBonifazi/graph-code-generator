@@ -6,7 +6,8 @@ import { useState } from "react"
 import GenericButton from "./components/GenericButton"
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react"
 import { useNavigate } from "react-router-dom"
-import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_ALL} from "./contexts/GraphTypeContext"
+import useGraphFormContext from "./hooks/useGraphFormContext"
+import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_ALL} from "./states/GraphTypeStates"
 
 
 const GraphOptions = () => {
@@ -14,6 +15,8 @@ const GraphOptions = () => {
     const [pickedColors, setPickedColors] = useState([])
     const [graphType, setGraphType] = useState(TYPE_PIE)
     const navigate = useNavigate()
+
+    const {handleChange, canSubmit, options} = useGraphFormContext()
 
     const onConfirmPickedColor = () => {
         if (currColor != null && !pickedColors.includes(currColor)) {
@@ -37,7 +40,7 @@ const GraphOptions = () => {
             <div className="flex justify-center items-center">
                 <Menu as="div" className="relative">
                     <MenuButton className="genericButton border rounded h-fit p-2 w-48 text-center">
-                        {graphType}
+                        {options.optionsGraphType}
                     </MenuButton>
 
                     <MenuItems className="absolute z-50 flex flex-col space-y-2">
@@ -46,7 +49,15 @@ const GraphOptions = () => {
                                 return <MenuItem key={element.replace(" " + "-") + "-menuitem"}>
                                     <a
                                     className="genericButton border rounded h-fit p-2 w-24 text-center"
-                                    onClick={() => setGraphType(element)}>
+                                    onClick={() => {
+                                        handleChange({
+                                            target: {
+                                                name: "optionsGraphType",
+                                                type: "menuItem",
+                                                value: element
+                                            }
+                                        })
+                                    }}>
                                         {element}
                                     </a>
                                 </MenuItem>

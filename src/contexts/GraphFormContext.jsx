@@ -1,11 +1,5 @@
 import { useState, createContext } from "react";
-
-export const TYPE_PIE = "Pie chart"
-export const TYPE_BAR = "Bar graph"
-export const TYPE_LINE = "Line graph"
-export const TYPE_DEFAULT = TYPE_PIE
-
-export const TYPE_ALL = [TYPE_PIE, TYPE_BAR, TYPE_LINE]
+import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_ALL, TYPE_DEFAULT} from "../states/GraphTypeStates"
 
 const GraphFormContext = createContext({})
 
@@ -13,7 +7,7 @@ export const GraphFormProvider = ({ children }) => {
     const [options, setOptions] = useState({
         uploadData: "",
         optionsColors: [],
-        optionsGraphType: "",
+        optionsGraphType: TYPE_DEFAULT,
         optionsX: "",
         optionsY: "",
         optionsSlices: []
@@ -22,6 +16,8 @@ export const GraphFormProvider = ({ children }) => {
     const handleChange = e => {
         const name = e.target.name
         const value = e.target.value
+
+        console.log(name, value)
 
         setOptions(data => ({
             ...data,
@@ -39,7 +35,8 @@ export const GraphFormProvider = ({ children }) => {
 
     const canSubmit = () => {
         switch (options.optionsGraphType) {
-            case TYPE_BAR, TYPE_LINE:
+            case TYPE_BAR:
+            case TYPE_LINE:
                 return Object.values([optionsX, optionsY, ...required]).every(Boolean)
             case TYPE_PIE:
                 return Object.values([optionsSlices, ...required]).every(Boolean)
