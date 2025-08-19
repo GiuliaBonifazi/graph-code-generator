@@ -7,7 +7,7 @@ import GenericButton from "./components/GenericButton"
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react"
 import { useNavigate } from "react-router-dom"
 import useGraphFormContext from "./hooks/useGraphFormContext"
-import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_ALL} from "./states/GraphTypeStates"
+import {TYPE_ALL} from "./states/GraphTypeStates"
 
 
 const GraphOptions = () => {

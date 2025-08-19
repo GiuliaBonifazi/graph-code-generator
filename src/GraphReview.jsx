@@ -1,8 +1,11 @@
 import Title from "./components/Title"
 import CriterionDisclosure from "./components/CriterionDisclosure"
 import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
+import useGraphFormContext from "./hooks/useGraphFormContext"
 
 const GraphReview = () => {
+    const {options} = useGraphFormContext()
+
     return <>
         <Title title="Graph review"></Title>
         <div className="w-full h-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 px-4 lg:px-0 items-center justify-center">
@@ -24,7 +27,7 @@ const GraphReview = () => {
                 </TabGroup>
                 <div className="flex flex-col w-full">
                     <h2 className="text-left">Used prompt:</h2>
-                    <textarea className="pasteArea border rounded resize-y min-w-[20rem] h-40" placeholder="Prompt goes here..."></textarea>
+                    <textarea className="pasteArea border rounded resize-y min-w-[20rem] h-40" value={options.optionsPrompt} placeholder="Prompt goes here..."></textarea>
                 </div>
             </div>
             <Disclosure as="div" className="flex flex-col self-start mr-4">
