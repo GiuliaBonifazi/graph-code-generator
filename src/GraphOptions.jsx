@@ -105,7 +105,10 @@ const GraphOptions = () => {
                 </div>
                 <textarea
                     className='pasteArea border lg:w-full h-[20rem] lg:h-[25rem]'
-                    placeholder="Prompt here" 
+                    placeholder="Prompt here"
+                    value={options.optionsPrompt}
+                    name="optionsPrompt"
+                    onChange={handleChange}
                 />
                 <input 
                     className='genericButton border rounded h-fit w-24 p-2 self-end mt-4' 
