@@ -13,14 +13,20 @@ import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_ALL} from "./states/GraphTypeStates"
 const GraphOptions = () => {
     const [currColor, setCurrColor] = useState("#000000")
     const [pickedColors, setPickedColors] = useState([])
-    const [graphType, setGraphType] = useState(TYPE_PIE)
     const navigate = useNavigate()
 
     const {handleChange, canSubmit, options} = useGraphFormContext()
 
     const onConfirmPickedColor = () => {
         if (currColor != null && !pickedColors.includes(currColor)) {
-            setPickedColors([...pickedColors, currColor])
+            setPickedColors([...options.optionsColors, currColor])
+            handleChange({
+                target: {
+                    name: "optionsColors",
+                    type: "text",
+                    value: [...options.optionsColors, currColor]
+                }
+            })
             setCurrColor(null)
         }
     }
@@ -30,7 +36,13 @@ const GraphOptions = () => {
     }
 
     const onRemoveColor = (color) => {
-        setPickedColors(pickedColors.filter((element) => element != color))
+        handleChange({
+            target: {
+                name: "optionsColors",
+                type: "text",
+                value: options.optionsColors.filter((element) => element != color)
+            }
+        })
     }
 
     return <>
@@ -73,7 +85,7 @@ const GraphOptions = () => {
                     navigate('/graph-review/')
                 }}   
                 >
-                <DataPlacementInput type={graphType}></DataPlacementInput>
+                <DataPlacementInput></DataPlacementInput>
                 <div id="picked-colors-container" className="flex flex-col lg:flex-row w-full lg:space-x-4 min-h-24">
                     <div className="flex flex-row w-fit min-h-24">
                         <GenericInput labelText="Pick your colours" id="colour-input" type="color" dim="h-8 w-12 mr-8" onChange={onNewPickedColor}/>
@@ -81,7 +93,7 @@ const GraphOptions = () => {
                     </div>
                     <div className="grid grid-flow-row w-full grid-cols-3 lg:grid-cols-5 gap-4">
                         {
-                            pickedColors.map((color) => {
+                            options.optionsColors.map((color) => {
                                 return <PickedColour 
                                     key={color} 
                                     color={color} 

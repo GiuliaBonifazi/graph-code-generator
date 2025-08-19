@@ -35,8 +35,8 @@ function DataPlacementInput() {
 
     if (options.optionsGraphType == TYPE_BAR || options.optionsGraphType == TYPE_LINE) {
         return <>
-            <GenericInput labelText="X axis data:" id="x-axis-data" type="text"></GenericInput>
-            <GenericInput labelText="Y axis data:" id="y-axis-data" type="text"></GenericInput>
+            <GenericInput labelText="X axis data:" id="x-axis-data" type="text" name="optionsX" onChange={handleChange}></GenericInput>
+            <GenericInput labelText="Y axis data:" id="y-axis-data" type="text" name="optionsY" onChange={handleChange}></GenericInput>
         </>
     } else if (options.optionsGraphType == TYPE_PIE) {
         return <div className="flex flex-col lg:flex-row w-full lg:space-x-4 space-y-4 min-h-24">

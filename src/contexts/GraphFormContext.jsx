@@ -10,19 +10,20 @@ export const GraphFormProvider = ({ children }) => {
         optionsGraphType: TYPE_DEFAULT,
         optionsX: "",
         optionsY: "",
-        optionsSlices: []
+        optionsSlices: [],
+        optionsPrompt: "Hi there!"
     })
 
     const handleChange = e => {
         const name = e.target.name
         const value = e.target.value
 
-        console.log(name, value)
-
         setOptions(data => ({
             ...data,
             [name]: value
         }))
+
+        console.log(name, value, options)
     }
 
     const {

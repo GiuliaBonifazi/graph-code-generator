@@ -6,7 +6,8 @@ function GenericInput(
         <input 
             id={props.id} 
             type={props.type} 
-            onChange={props.onChange} 
+            onChange={props.onChange}
+            name={props.name}
             className={"pasteArea border rounded " + (props.dim == null ?  "w-40 h-fit" : props.dim)}/>
     </div>
 }
