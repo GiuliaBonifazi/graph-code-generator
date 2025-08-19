@@ -3,11 +3,14 @@ import Title from './components/Title'
 import { useNavigate } from 'react-router-dom'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import {STATE_PASTE, STATE_UPLOAD} from "./states/DatasetSelectionStates"
+import useGraphFormContext from "./hooks/useGraphFormContext"
 
 
 const DatasetSelection = () => {
     const [pageState, setPageState] = useState(STATE_PASTE)
     const navigate = useNavigate()
+
+    const {handleChange, options, canToOptions} = useGraphFormContext()
 
     return <>
         <Title title='Upload your dataset'/>
@@ -30,7 +33,9 @@ const DatasetSelection = () => {
                         <textarea 
                             id="pasteTextArea"
                             className='pasteArea resize-y w-full h-full'
-                            placeholder="Paste your dataset here" 
+                            placeholder="Paste your dataset here"
+                            name="uploadData"
+                            onChange={handleChange}
                         />
                     </TabPanel>
                     <TabPanel className="w-full h-full">
@@ -41,6 +46,8 @@ const DatasetSelection = () => {
                                 id="uploadFileInput" 
                                 accept=".csv, .tsv, .txt"
                                 className='text-center genericButton border rounded h-fit w-fit p-2 self-center'
+                                name="uploadData"
+                                onChange={handleChange}
                             />
                         </div>
                     </TabPanel>
@@ -48,7 +55,8 @@ const DatasetSelection = () => {
             </TabGroup>
                 <input 
                     className='genericButton border rounded h-fit w-24 p-2 self-end mt-4' 
-                    type='submit'>
+                    type='submit'
+                    disabled={!canToOptions}>
                 </input>
             </form>
         </div>
