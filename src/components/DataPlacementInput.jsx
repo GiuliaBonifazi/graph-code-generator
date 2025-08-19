@@ -7,19 +7,30 @@ import useGraphFormContext from "../hooks/useGraphFormContext";
 
 function DataPlacementInput() {
     const [currSlice, setCurrSlice] = useState(null)
-    const [pickedSlices, setPickedSlices] = useState([])
 
     const {options, handleChange} = useGraphFormContext()
 
     const onConfirmSlice = () => {
         if (currSlice != "" && currSlice != null) {
-            setPickedSlices([...pickedSlices, currSlice])
+            handleChange({
+                target: {
+                    name: "optionsSlices",
+                    type: "text",
+                    value: [...options.optionsSlices, currSlice]
+                }
+            })
             setCurrSlice(null)
         }
     }
 
     const onRemoveSlice = (slice) => {
-        setPickedSlices(pickedSlices.filter((el) => el != slice))
+        handleChange({
+                target: {
+                    name: "optionsSlices",
+                    type: "text",
+                    value: options.optionsSlices.filter((el) => el != slice)
+                }
+            })
     }
 
     if (options.optionsGraphType == TYPE_BAR || options.optionsGraphType == TYPE_LINE) {
@@ -35,7 +46,7 @@ function DataPlacementInput() {
             </div>
             <div className="grid grid-flow-row w-full grid-cols-3 lg:grid-cols-5 gap-4">
                 {
-                    pickedSlices.map((slice) => {
+                    options.optionsSlices.map((slice) => {
                         return <div key={slice + "-div"} className="flex flex-col space-y-2 items-center border rounded h-fit w-fit p-2">
                             <p className="text-center">{slice}</p>
                             <GenericButton label={"Remove " + slice} dims="h-fit w-20" onClick={() => {onRemoveSlice(slice)}}></GenericButton>
