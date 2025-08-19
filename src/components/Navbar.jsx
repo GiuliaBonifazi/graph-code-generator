@@ -1,9 +1,9 @@
 import { Disclosure, Menu, MenuItem, MenuItems, MenuButton} from "@headlessui/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import gpt5_query from "../model/queries/chatgpt-queries"
-import gemini_query from "../model/queries/gemini-queries"
-import deepseek_query from "../model/queries/deepseek-queries"
+import gpt5_query from "../queries/chatgpt-queries"
+import gemini_query from "../queries/gemini-queries"
+import deepseek_query from "../queries/deepseek-queries"
 
 
 function Navbar(props) {
