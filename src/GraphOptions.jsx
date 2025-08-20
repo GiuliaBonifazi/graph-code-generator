@@ -8,6 +8,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react"
 import { useNavigate } from "react-router-dom"
 import useGraphFormContext from "./hooks/useGraphFormContext"
 import {TYPE_ALL} from "./states/GraphTypeStates"
+import DataTable from "./components/table/DataTable"
 
 
 const GraphOptions = () => {
@@ -47,7 +48,6 @@ const GraphOptions = () => {
 
     return <>
         <Title title="Graph options"></Title>
-        {/* TODO DATA PREVIEW */}
         <div className="flex flex-col space-y-4">
             <div className="flex justify-center items-center">
                 <Menu as="div" className="relative">
@@ -78,6 +78,7 @@ const GraphOptions = () => {
                     </MenuItems>
                 </Menu>
             </div>
+            <DataTable></DataTable>
             <form 
                 className="flex flex-col justify-start space-y-4 px-8 lg:px-40"
                 onSubmit={(event) => {
