@@ -11,10 +11,18 @@ function parseFile (file) {
         }
     
         const reader = new FileReader()
-
         reader.onload = () => {
             const data = reader.result
-            const type = file.type
+            const name = file.name
+            let type = file.type
+
+            if (!type || type === "text/plain") {
+                if (name.endsWith(".csv")) {
+                    type = "text/csv";
+                } else if (name.endsWith(".tsv")) {
+                    type = "text/tsv";
+                }
+            }
             
             switch (type) {
                 case "text/csv":
@@ -48,7 +56,7 @@ function parseFile (file) {
 }
 
 function parseCsvOrTsv(data, delimiter) {
-    const splitData = data.split("\n")
+    const splitData = data.split(/\r?\n/)
     const headers = splitData[0].split(delimiter)
     const rows = splitData
         .slice(1)

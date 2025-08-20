@@ -15,13 +15,18 @@ export const GraphFormProvider = ({ children }) => {
         optionsPrompt: "Hi there!"
     })
 
-    const handleChange = e => {
+    const handleChange = async e => {
         const name = e.target.name
         
-        if (e.target.type = "file") {
-            const res = parseFile(e.target.files[0])
+        if (e.target.type == "file") {
+            const res = await parseFile(e.target.files[0])
             if (!res.hasFailed) {
-                console.log(res.data.headers, res.data.rows)
+                setOptions(data => ({
+                    ...data,
+                    [name]: res.data
+                }))
+            } else {
+                console.log("Failed: " + res.message)
             }
         } else {
             const value = e.target.value
