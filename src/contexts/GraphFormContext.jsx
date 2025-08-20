@@ -1,5 +1,6 @@
 import { useState, createContext } from "react";
 import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_ALL, TYPE_DEFAULT} from "../states/GraphTypeStates"
+import parseFile from "../utils/parsers";
 
 const GraphFormContext = createContext({})
 
@@ -16,14 +17,21 @@ export const GraphFormProvider = ({ children }) => {
 
     const handleChange = e => {
         const name = e.target.name
-        const value = e.target.value
+        
+        if (e.target.type = "file") {
+            const res = parseFile(e.target.files[0])
+            if (!res.hasFailed) {
+                console.log(res.data.headers, res.data.rows)
+            }
+        } else {
+            const value = e.target.value
+            setOptions(data => ({
+                ...data,
+                [name]: value
+            }))
+        }
 
-        setOptions(data => ({
-            ...data,
-            [name]: value
-        }))
-
-        console.log(name, value, options)
+        console.log(name, options)
     }
 
     const {
