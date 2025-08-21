@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom"
 import useGraphFormContext from "./hooks/useGraphFormContext"
 import {TYPE_ALL} from "./states/GraphTypeStates"
 import DataTable from "./components/table/DataTable"
+import gemini_query from "./utils/queries"
 
 
 const GraphOptions = () => {
@@ -82,6 +83,7 @@ const GraphOptions = () => {
                 className="flex flex-col justify-start space-y-4 mx-8 lg:mx-40"
                 onSubmit={(event) => {
                     event.preventDefault()
+                    gemini_query("Hi how are you?")
                     navigate('/graph-review/')
                 }}   
                 >
