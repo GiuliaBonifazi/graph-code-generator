@@ -1,6 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 
-const client = new GoogleGenAI({ apiKey: secrets.API_KEY,  })
+const API_KEY = import.meta.env.VITE_API_KEY;
+const client = new GoogleGenAI({ API_KEY,  })
 
 async function gemini_query(query) {
     const response = await client.models.generateContent({

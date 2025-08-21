@@ -63,6 +63,7 @@ const GraphOptions = () => {
                                     <a
                                     className="genericButton border rounded h-fit p-2 w-24 text-center"
                                     onClick={() => {
+                                        gemini_query("Hi how are you?")
                                         handleChange({
                                             target: {
                                                 name: "optionsGraphType",
@@ -83,7 +84,6 @@ const GraphOptions = () => {
                 className="flex flex-col justify-start space-y-4 mx-8 lg:mx-40"
                 onSubmit={(event) => {
                     event.preventDefault()
-                    gemini_query("Hi how are you?")
                     navigate('/graph-review/')
                 }}   
                 >
