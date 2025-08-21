@@ -85,8 +85,10 @@ const GraphOptions = () => {
                     navigate('/graph-review/')
                 }}   
                 >
-                <div className="overflow-auto lg:h-[20rem]">
-                    <DataTable></DataTable>
+                <div className="w-full flex flex-row justify-center items-center">
+                    <div className="overflow-auto h-[15rem] lg:h-[20rem] w-fit">
+                        <DataTable></DataTable>
+                    </div>
                 </div>
                 <DataPlacementInput></DataPlacementInput>
                 <div id="picked-colors-container" className="flex flex-col lg:flex-row w-full lg:space-x-4 min-h-24">
