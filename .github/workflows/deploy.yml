@@ -13,10 +13,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Use secret from environment
-        run: | 
-            echo "VITE_API_KEY=${{ secrets.API_KEY }}" >> .env
-            npm install
-            npm run build
-      
-      - name: Print .env contents
-        run: cat .env
+        env: 
+          VITE_API_KEY: ${{ secrets.API_KEY }}
+        run: npm run dev
