@@ -56,7 +56,7 @@ function parseFile (file) {
 }
 
 function parseCsvOrTsv(data, delimiter) {
-    const splitData = data.split(/\r?\n/)
+    const splitData = data.split(/\r?\n/).filter(row => row != "")
     const headers = splitData[0]
         .split(delimiter)
         .map(header => {
@@ -67,8 +67,8 @@ function parseCsvOrTsv(data, delimiter) {
         })
     const rows = splitData
         .slice(1)
-        .map((row) => { 
-            const splitByCell = row.split(delimiter).map((cell, column_index) => {
+        .map((row) => {
+            const splitByCell = row.trim().split(delimiter).map((cell, column_index) => {
                 return {
                     [headers[column_index].accessorKey]: cell
                 }
