@@ -1,0 +1,16 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Gemini-API 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use secret from environment
+        run: echo "API key is ${{ secrets.API_KEY }}"
