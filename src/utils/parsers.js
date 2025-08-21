@@ -57,11 +57,24 @@ function parseFile (file) {
 
 function parseCsvOrTsv(data, delimiter) {
     const splitData = data.split(/\r?\n/)
-    const headers = splitData[0].split(delimiter)
+    const headers = splitData[0]
+        .split(delimiter)
+        .map(header => {
+            return {
+                header: header,
+                accessorKey: header.toLowerCase().replace(" ", "_")
+            }
+        })
     const rows = splitData
         .slice(1)
-        .map(row =>{ return row.split(delimiter) })
-    console.log(headers, rows)
+        .map((row) => { 
+            const splitByCell = row.split(delimiter).map((cell, column_index) => {
+                return {
+                    [headers[column_index].accessorKey]: cell
+                }
+            })
+            return Object.assign({}, ...splitByCell)
+        })
     return {
         hasFailed: false,
         data: {
