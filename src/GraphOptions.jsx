@@ -78,14 +78,16 @@ const GraphOptions = () => {
                     </MenuItems>
                 </Menu>
             </div>
-            <DataTable></DataTable>
             <form 
-                className="flex flex-col justify-start space-y-4 px-8 lg:px-40"
+                className="flex flex-col justify-start space-y-4 mx-8 lg:mx-40"
                 onSubmit={(event) => {
                     event.preventDefault()
                     navigate('/graph-review/')
                 }}   
                 >
+                <div className="overflow-auto">
+                    <DataTable></DataTable>
+                </div>
                 <DataPlacementInput></DataPlacementInput>
                 <div id="picked-colors-container" className="flex flex-col lg:flex-row w-full lg:space-x-4 min-h-24">
                     <div className="flex flex-row w-fit min-h-24">
