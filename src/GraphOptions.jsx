@@ -85,7 +85,7 @@ const GraphOptions = () => {
                     navigate('/graph-review/')
                 }}   
                 >
-                <div className="overflow-auto">
+                <div className="overflow-auto lg:h-[20rem]">
                     <DataTable></DataTable>
                 </div>
                 <DataPlacementInput></DataPlacementInput>
