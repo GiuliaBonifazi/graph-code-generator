@@ -1,6 +1,9 @@
 import { useState, createContext } from "react";
-import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_ALL, TYPE_DEFAULT} from "../states/GraphTypeStates"
+import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_DEFAULT} from "../states/GraphTypeStates"
 import parseFile from "../utils/parsers";
+import QueryBuilder from "../utils/QueryBuilder"
+import gemini_query from "../utils/queries";
+import DEFAULT_QUERIES from "../utils/queries/defaultQueries";
 
 const GraphFormContext = createContext({})
 
@@ -12,7 +15,8 @@ export const GraphFormProvider = ({ children }) => {
         optionsX: "",
         optionsY: "",
         optionsSlices: [],
-        optionsPrompt: "Hi there!"
+        optionsPrompt: DEFAULT_QUERIES.QUERY,
+        graphs: {}
     })
 
     const handleChange = async e => {
@@ -35,8 +39,6 @@ export const GraphFormProvider = ({ children }) => {
                 [name]: value
             }))
         }
-
-        console.log(name, options)
     }
 
     const {
@@ -44,6 +46,7 @@ export const GraphFormProvider = ({ children }) => {
         optionsX,
         optionsY,
         optionsSlices,
+        graphs,
         ...required
     } = options
 
@@ -59,10 +62,18 @@ export const GraphFormProvider = ({ children }) => {
         }
     }
 
+    const onSubmit = async () => {
+        const queryBuilder = new QueryBuilder()
+        const finalQuery = queryBuilder.buildQueryForType(options)
+        const response = await gemini_query(finalQuery)
+        options.graphs = JSON.parse(response.replace("\`\`\`json","").replace("\`\`\`", ""))
+        console.log(options.graphs)
+    }
+
     const canToOptions = [...Object.keys(required)].filter(key => key.startsWith("upload")).map(key => options[key]).every(Boolean)
 
     return (
-        <GraphFormContext.Provider value={{options, setOptions, canSubmit, canToOptions, handleChange}}>
+        <GraphFormContext.Provider value={{options, setOptions, canSubmit, canToOptions, handleChange, onSubmit}}>
             {children}
         </GraphFormContext.Provider>
     )

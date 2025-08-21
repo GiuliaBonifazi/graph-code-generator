@@ -18,16 +18,16 @@ const GraphReview = () => {
                     </TabList>
                     <TabPanels className="border rounded w-full min-h-[40rem] min-w-[20rem] pasteArea">
                         <TabPanel>
-                            <pre><code>console.log("Here's your JS code!")</code></pre>
+                            <pre><code>{options.graphs.js}</code></pre>
                         </TabPanel>
                         <TabPanel>
-                            <pre><code>print("Here's your Python code!")</code></pre>
+                            <pre><code>{options.graphs.python}</code></pre>
                         </TabPanel>
                     </TabPanels>
                 </TabGroup>
                 <div className="flex flex-col w-full">
                     <h2 className="text-left">Used prompt:</h2>
-                    <textarea className="pasteArea border rounded resize-y min-w-[20rem] h-40" value={options.optionsPrompt} placeholder="Prompt goes here..."></textarea>
+                    <textarea className="pasteArea border rounded resize-y min-w-[20rem] h-40" placeholder="Prompt goes here..." defaultValue={options.optionsPrompt}></textarea>
                 </div>
             </div>
             <Disclosure as="div" className="flex flex-col self-start mr-4">

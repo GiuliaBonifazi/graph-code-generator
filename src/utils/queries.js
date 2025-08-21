@@ -8,7 +8,10 @@ async function gemini_query(query) {
         model: "gemini-2.5-flash",
         contents: query
     })
-    console.log(response.text)
+    
+    return response.text
 }
+
+
 
 export default gemini_query
