@@ -16,12 +16,12 @@ const GraphReview = () => {
                         <Tab className="rounded border genericButton w-fit h-fit p-2">JavaScript</Tab>
                         <Tab className="rounded border genericButton w-fit h-fit p-2">Python</Tab>
                     </TabList>
-                    <TabPanels className="border rounded w-full min-h-[40rem] min-w-[20rem] pasteArea">
+                    <TabPanels className="border rounded w-full h-[40rem] pasteArea overflow-auto">
                         <TabPanel>
-                            <pre><code>{options.graphs.js}</code></pre>
+                            <pre className="whitespace-pre-wrap"><code>{options.graphs.js}</code></pre>
                         </TabPanel>
                         <TabPanel>
-                            <pre><code>{options.graphs.python}</code></pre>
+                            <pre className="whitespace-pre-wrap"><code>{options.graphs.py}</code></pre>
                         </TabPanel>
                     </TabPanels>
                 </TabGroup>

@@ -56,7 +56,7 @@ function parseFile (file) {
 }
 
 function parseCsvOrTsv(data, delimiter) {
-    const splitData = data.split(/\r?\n/).filter(row => row != "")
+    const splitData = data.replaceAll("\"", "").split(/\r?\n/).filter(row => row != "")
     const headers = splitData[0]
         .split(delimiter)
         .map(header => {

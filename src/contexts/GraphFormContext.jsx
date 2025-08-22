@@ -16,7 +16,10 @@ export const GraphFormProvider = ({ children }) => {
         optionsY: "",
         optionsSlices: [],
         optionsPrompt: DEFAULT_QUERIES.QUERY,
-        graphs: {}
+        graphs: {
+            py: "Loading...",
+            js: "Loading..."
+        }
     })
 
     const handleChange = async e => {
@@ -64,10 +67,25 @@ export const GraphFormProvider = ({ children }) => {
 
     const onSubmit = async () => {
         const queryBuilder = new QueryBuilder()
-        const finalQuery = queryBuilder.buildQueryForType(options)
-        const response = await gemini_query(finalQuery)
-        options.graphs = JSON.parse(response.replace("\`\`\`json","").replace("\`\`\`", ""))
-        console.log(options.graphs)
+
+        const finalQueryPython = queryBuilder.buildQueryForType(options, "Python")
+        const finalQueryJS = queryBuilder.buildQueryForType(options, "JavaScript")
+
+        const responseJS = await gemini_query(finalQueryJS)
+        console.log(responseJS)
+        // options.graphs.js = responseJS.replace("\`\`\`html","").replace("\`\`\`", "")
+
+        const responsePython = await gemini_query(finalQueryPython)
+        console.log(responsePython)
+        // options.graphs.py = responsePython.replace("\`\`\`python","").replace("\`\`\`", "")
+
+        setOptions(data => ({
+            ...data,
+            graphs: {
+                py: responsePython.replace("\`\`\`python","").replace("\`\`\`", "").trim(),
+                js: responseJS.replace("\`\`\`html","").replace("\`\`\`", "").trim()
+            }
+        }))
     }
 
     const canToOptions = [...Object.keys(required)].filter(key => key.startsWith("upload")).map(key => options[key]).every(Boolean)
