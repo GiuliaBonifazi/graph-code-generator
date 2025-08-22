@@ -3,7 +3,7 @@ import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_DEFAULT} from "../states/GraphTypeSt
 import parseFile from "../utils/parsers";
 import QueryBuilder from "../utils/QueryBuilder"
 import gemini_query from "../utils/queries";
-import DEFAULT_QUERIES from "../utils/queries/defaultQueries";
+import {DEFAULT_QUERIES,  CRITERIA_TO_CHECK} from "../utils/queries/defaultQueries";
 
 const GraphFormContext = createContext({})
 
@@ -19,7 +19,8 @@ export const GraphFormProvider = ({ children }) => {
         graphs: {
             py: "Loading...",
             js: "Loading..."
-        }
+        },
+        criteria: CRITERIA_TO_CHECK
     })
 
     const handleChange = async e => {
@@ -72,12 +73,8 @@ export const GraphFormProvider = ({ children }) => {
         const finalQueryJS = queryBuilder.buildQueryForType(options, "JavaScript")
 
         const responseJS = await gemini_query(finalQueryJS)
-        console.log(responseJS)
-        // options.graphs.js = responseJS.replace("\`\`\`html","").replace("\`\`\`", "")
 
         const responsePython = await gemini_query(finalQueryPython)
-        console.log(responsePython)
-        // options.graphs.py = responsePython.replace("\`\`\`python","").replace("\`\`\`", "")
 
         setOptions(data => ({
             ...data,
@@ -86,6 +83,8 @@ export const GraphFormProvider = ({ children }) => {
                 js: responseJS.replace("\`\`\`html","").replace("\`\`\`", "").trim()
             }
         }))
+
+
     }
 
     const canToOptions = [...Object.keys(required)].filter(key => key.startsWith("upload")).map(key => options[key]).every(Boolean)

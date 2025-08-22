@@ -1,3 +1,16 @@
+export const CRITERIA_TO_CHECK = [
+    {
+        name: "Not more than four colours",
+        id: "four_colors",
+        desc: "The chart should not contain more than four colors"
+    },
+    {
+        name: "Use an appropriate caption",
+        id: "appropriate_caption",
+        desc: "The caption should accurately describe the contents of the chart"
+    },
+]
+
 export const DEFAULT_QUERIES = {
     QUERY: `
         You will be given data in JSON format to write the code for
@@ -17,9 +30,15 @@ export const DEFAULT_QUERIES = {
     COLORS: `
         The graph needs to be of these colours: `,
     TAIL: `
-        Return the code for the graph in the following language, in a single file. Reply only with the code and nothing else: `
+        Return the code for the graph in the following language, in a single file. Reply only with the code and nothing else: `,
+    CRITERIA:
+        `For each of the following criteria, return a list of JSON objects with the following fields:
+        - "level", which can have values "E" for a criterion that has not been respected, "W" for one whose correctness could not be determined or "C" for one that has been respected
+        - "id", which contains the id of the respective criterion.
+        The criteria are the following: 
+        ${CRITERIA_TO_CHECK}`
 }
 
 Object.freeze(DEFAULT_QUERIES)
 
-export default DEFAULT_QUERIES
+export default {DEFAULT_QUERIES, CRITERIA_TO_CHECK}

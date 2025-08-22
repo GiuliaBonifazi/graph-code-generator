@@ -34,12 +34,8 @@ const GraphReview = () => {
                 <DisclosureButton className="border rounded genericButton w-fit h-fit p-2">Check criteria</DisclosureButton>
                 <DisclosurePanel className="border rounded text-left lg:min-w-[20rem]">
                     {
-                        [   {criterion: "Le banane", explanation: "Maperche", level: "E"},
-                            {criterion: "sono belle", explanation: "banane", level:"W"},
-                            {criterion: "Uffaaaa uffa", explanation: "sì", level:"C"}
-                        ].map((element) => {
-                            const id = element.criterion.replace(" ", "-")
-                            return <CriterionDisclosure key={id} id={id} level={element.level} criterion={element.criterion} explanation={element.explanation}/>
+                        options.criteria.map((element) => {
+                            return <CriterionDisclosure key={element.id} id={element.id} level={element.level} name={element.name} desc={element.desc}/>
                         })
                     }
                 </DisclosurePanel>

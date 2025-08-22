@@ -1,23 +1,25 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 
 
-function CriterionDisclosure(props) {
-  let level = ""
-  switch (props.level) {
+function CriterionDisclosure({level, id, name, desc} = props) {
+  console.log(level,id,name,desc)
+  let levelClass = ""
+  switch (level) {
     case"W": 
-      level = "warning"
+      levelClass = "warning"
       break;
     case "E":
-      level = "error"
+      levelClass = "error"
       break;
     case "C":
-      level = "check"
+    default:
+      levelClass = "check"
       break;
   }
-  return <Disclosure key={props.id + "-disclosure"} as="div" className="flex flex-col text-left">
-    <DisclosureButton key={props.id + "-button"} className={"p-2 text-left hover:border " + level + "Background"}>{props.criterion}</DisclosureButton>
-    <DisclosurePanel key={props.id + "-panel"} className={"text-left p-2 "  + level + "Highlight"}>
-      {props.explanation}
+  return <Disclosure key={id + "-disclosure"} as="div" className="flex flex-col text-left">
+    <DisclosureButton key={id + "-button"} className={"p-2 text-left hover:border " + levelClass + "Background"}>{name}</DisclosureButton>
+    <DisclosurePanel key={id + "-panel"} className={"text-left p-2 "  + levelClass + "Highlight"}>
+      {desc}
     </DisclosurePanel>
   </Disclosure>
 }
