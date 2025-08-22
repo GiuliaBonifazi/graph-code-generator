@@ -76,15 +76,22 @@ export const GraphFormProvider = ({ children }) => {
 
         const responsePython = await gemini_query(finalQueryPython)
 
+        const graphs = {
+            py: responsePython.replace("\`\`\`python","").replace("\`\`\`", "").trim(),
+            js: responseJS.replace("\`\`\`html","").replace("\`\`\`", "").trim()
+        }
+
         setOptions(data => ({
             ...data,
-            graphs: {
-                py: responsePython.replace("\`\`\`python","").replace("\`\`\`", "").trim(),
-                js: responseJS.replace("\`\`\`html","").replace("\`\`\`", "").trim()
-            }
+            graphs: graphs
         }))
 
-
+        const newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs))
+        console.log(JSON.parse(newCriteria.replace("\`\`\`json","").replace("\`\`\`", "").trim()))
+        setOptions(data => ({
+            ...data,
+            criteria: JSON.parse(newCriteria.replace("\`\`\`json","").replace("\`\`\`", "").trim())
+        }))
     }
 
     const canToOptions = [...Object.keys(required)].filter(key => key.startsWith("upload")).map(key => options[key]).every(Boolean)

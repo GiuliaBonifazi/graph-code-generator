@@ -1,5 +1,5 @@
 import {TYPE_BAR, TYPE_LINE, TYPE_PIE} from "../states/GraphTypeStates"
-import DEFAULT_QUERIES from "./queries/defaultQueries"
+import {DEFAULT_QUERIES, CRITERIA_TO_CHECK } from "./queries/defaultQueries"
 
 class QueryBuilder {
     constructor() {
@@ -66,6 +66,17 @@ class QueryBuilder {
         const finalQuery = this.query
         this.resetQuery()
         return finalQuery
+    }
+
+    buildQueryCriteriaCheck(graphs) {
+        const query = `${DEFAULT_QUERIES.CRITERIA}
+        ${JSON.stringify(CRITERIA_TO_CHECK)}
+        These are the graphs:
+        ${graphs.py}
+        
+        ${graphs.js}`
+        console.log(query)
+        return query
     }
 }
 

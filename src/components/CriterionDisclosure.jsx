@@ -2,7 +2,6 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react
 
 
 function CriterionDisclosure({level, id, name, desc} = props) {
-  console.log(level,id,name,desc)
   let levelClass = ""
   switch (level) {
     case"W": 

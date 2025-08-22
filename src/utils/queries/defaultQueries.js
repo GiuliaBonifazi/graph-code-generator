@@ -31,12 +31,16 @@ export const DEFAULT_QUERIES = {
         The graph needs to be of these colours: `,
     TAIL: `
         Return the code for the graph in the following language, in a single file. Reply only with the code and nothing else: `,
-    CRITERIA:
-        `For each of the following criteria, return a list of JSON objects with the following fields:
+    CRITERIA:`
+        Using the criteria provided and checking them against the graph provided below them, return an array of JSON objects with the following fields.
+        Only reply with the JSON, add nothing but the JSON. Only write the array without enclosing it inside an object.
+        Do not reply with anything else but the JSON text. Here are the fields for each object in the array:
         - "level", which can have values "E" for a criterion that has not been respected, "W" for one whose correctness could not be determined or "C" for one that has been respected
         - "id", which contains the id of the respective criterion.
+        - "desc", which contains the description of the respective criterion.
+        - "name", which contains the name of the respective criterion
         The criteria are the following: 
-        ${CRITERIA_TO_CHECK}`
+        `
 }
 
 Object.freeze(DEFAULT_QUERIES)
