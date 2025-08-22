@@ -11,8 +11,10 @@ function CriterionDisclosure({level, id, name, desc} = props) {
       levelClass = "error"
       break;
     case "C":
+      levelClass = "correct"
+      break;
     default:
-      levelClass = "check"
+      levelClass = "warning"
       break;
   }
   return <Disclosure key={id + "-disclosure"} as="div" className="flex flex-col text-left">
