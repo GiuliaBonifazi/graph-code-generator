@@ -33,7 +33,7 @@ function DataPlacementInput() {
             })
     }
 
-    if (options.optionsGraphType == TYPE_BAR || options.optionsGraphType == TYPE_LINE) {
+    if (options.optionsGraphType == TYPE_LINE) {
         return <>
             <GenericInput labelText="X axis data:" id="x-axis-data" type="text" name="optionsX" onChange={handleChange}></GenericInput>
             <GenericInput labelText="Y axis data:" id="y-axis-data" type="text" name="optionsY" onChange={handleChange}></GenericInput>
@@ -55,6 +55,10 @@ function DataPlacementInput() {
                 }
             </div>
         </div>
+    } else if  (options.optionsGraphType == TYPE_BAR) {
+        return <>
+            <GenericInput labelText="Bar data: " id="bar-data" type="text" name="optionsBarData" onChange={handleChange}></GenericInput>
+        </>
     }
 }
 

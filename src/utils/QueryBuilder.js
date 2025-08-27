@@ -5,9 +5,7 @@ class QueryBuilder {
     constructor() {
         this.query = DEFAULT_QUERIES.QUERY
         this.colors = ""
-        this.xAxis = ""
-        this.yAxis = ""
-        this.slices = ""
+        this.dataPlacement = ""
         this.data = ""
         this.tail = DEFAULT_QUERIES.TAIL
         this.type = ""
@@ -25,18 +23,6 @@ class QueryBuilder {
         this.colors = DEFAULT_QUERIES.COLORS + colors.toString()
     }
 
-    setXAxis(xAxis) {
-        this.xAxis = DEFAULT_QUERIES.XAXIS + xAxis
-    }
-
-    setYAxis(yAxis) {
-        this.yAxis = DEFAULT_QUERIES.YAXIS + yAxis
-    }
-
-    setSlices(slices) {
-        this.slices = DEFAULT_QUERIES.SLICES + slices.toString()
-    }
-
     setData(data) {
         const headers = data.headers.map(header => header.header)
         this.data = `${DEFAULT_QUERIES.DATA} headers:\n${headers}\nrows:\n${data.rows.map(row => JSON.stringify(row))}`
@@ -50,14 +36,16 @@ class QueryBuilder {
         this.query += this.type + this.data + this.colors
         switch (type) {
             case TYPE_BAR:
+                const barData = DEFAULT_QUERIES.BARS + options.optionsBarData
+                this.query += barData
             case TYPE_LINE:
-                this.setXAxis(options.optionsX)
-                this.setYAxis(options.optionsY)
-                this.query += this.xAxis + this.yAxis
+                const xAxis = DEFAULT_QUERIES.XAXIS + options.optionsX
+                const yAxis = DEFAULT_QUERIES.YAXIS + options.optionsY
+                this.query += xAxis + yAxis
                 break
             case TYPE_PIE:
-                this.setSlices(options.optionsSlices)
-                this.query += this.slices
+                const slices = DEFAULT_QUERIES.SLICES + options.optionsSlices.toString()
+                this.query += slices
                 break
             default:
                 break

@@ -15,6 +15,7 @@ export const GraphFormProvider = ({ children }) => {
         optionsX: "",
         optionsY: "",
         optionsSlices: [],
+        optionsBarData: "",
         optionsPrompt: DEFAULT_QUERIES.QUERY,
         graphs: {
             py: "Loading...",
@@ -51,12 +52,14 @@ export const GraphFormProvider = ({ children }) => {
         optionsY,
         optionsSlices,
         graphs,
+        optionsBarData,
         ...required
     } = options
 
     const canSubmit = () => {
         switch (options.optionsGraphType) {
             case TYPE_BAR:
+                return Object.values([optionsBarData, ...required]).every(Boolean)
             case TYPE_LINE:
                 return Object.values([optionsX, optionsY, ...required]).every(Boolean)
             case TYPE_PIE:

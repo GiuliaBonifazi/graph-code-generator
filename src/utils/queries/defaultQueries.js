@@ -27,6 +27,8 @@ export const DEFAULT_QUERIES = {
         The graph needs to have this data on the y axis: `,
     SLICES: `
         The pie chart needs to be divided in these slices: `,
+    BARS: `
+        The bars of the graph are decided by this data: `,
     COLORS: `
         The graph needs to be of these colours: `,
     TAIL: `
