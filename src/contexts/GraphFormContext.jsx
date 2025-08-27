@@ -90,7 +90,6 @@ export const GraphFormProvider = ({ children }) => {
         }))
 
         const newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs))
-        console.log(JSON.parse(newCriteria.replace("\`\`\`json","").replace("\`\`\`", "").trim()))
         setOptions(data => ({
             ...data,
             criteria: JSON.parse(newCriteria.replace("\`\`\`json","").replace("\`\`\`", "").trim())
