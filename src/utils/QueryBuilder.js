@@ -63,7 +63,6 @@ class QueryBuilder {
         ${graphs.py}
         
         ${graphs.js}`
-        console.log(query)
         return query
     }
 }
