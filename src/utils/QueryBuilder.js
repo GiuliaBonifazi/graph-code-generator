@@ -28,7 +28,7 @@ class QueryBuilder {
         this.data = `${DEFAULT_QUERIES.DATA} headers:\n${headers}\nrows:\n${data.rows.map(row => JSON.stringify(row))}`
     }
 
-    buildQueryForType(options, language) {
+    buildQueryForType(options, language, extra) {
         const type = options.optionsGraphType
         this.setColors(options.optionsColors)
         this.setData(options.uploadData)
@@ -50,7 +50,7 @@ class QueryBuilder {
             default:
                 break
         }
-        this.query += this.tail + language
+        this.query += this.tail + language + extra
         const finalQuery = this.query
         this.resetQuery()
         return finalQuery

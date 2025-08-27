@@ -73,7 +73,8 @@ export const GraphFormProvider = ({ children }) => {
         const queryBuilder = new QueryBuilder()
 
         const finalQueryPython = queryBuilder.buildQueryForType(options, "Python")
-        const finalQueryJS = queryBuilder.buildQueryForType(options, "JavaScript")
+        const finalQueryJS = queryBuilder.buildQueryForType(options, "JavaScript", "\nReturn the html with a script tag, \
+            not pure javascript. Don't assume index.htmml exists")
 
         const responseJS = await gemini_query(finalQueryJS)
 
