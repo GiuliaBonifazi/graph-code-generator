@@ -2,8 +2,8 @@ import { useState, createContext } from "react";
 import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_DEFAULT} from "../states/GraphTypeStates"
 import parseFile from "../utils/parsers";
 import QueryBuilder from "../utils/QueryBuilder"
-import gemini_query from "../utils/queries";
-import {DEFAULT_QUERIES,  CRITERIA_TO_CHECK} from "../utils/ai-queries/defaultQueries";
+import gemini_query from "../utils/queries/gemini/ai_queries";
+import {DEFAULT_QUERIES,  CRITERIA_TO_CHECK} from "../utils/queries/gemini/defaultQueries";
 
 const GraphFormContext = createContext({})
 

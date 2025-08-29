@@ -1,5 +1,5 @@
-import {TYPE_BAR, TYPE_LINE, TYPE_PIE} from "../states/GraphTypeStates"
-import {DEFAULT_QUERIES, CRITERIA_TO_CHECK } from "./ai-queries/defaultQueries"
+import {TYPE_BAR, TYPE_LINE, TYPE_PIE} from "../../../states/GraphTypeStates"
+import {DEFAULT_QUERIES } from "./defaultQueries"
 
 class QueryBuilder {
     constructor() {
