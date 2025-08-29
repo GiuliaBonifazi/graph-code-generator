@@ -3,7 +3,7 @@ import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_DEFAULT} from "../states/GraphTypeSt
 import parseFile from "../utils/parsers";
 import QueryBuilder from "../utils/QueryBuilder"
 import gemini_query from "../utils/queries";
-import {DEFAULT_QUERIES,  CRITERIA_TO_CHECK} from "../utils/queries/defaultQueries";
+import {DEFAULT_QUERIES,  CRITERIA_TO_CHECK} from "../utils/ai-queries/defaultQueries";
 
 const GraphFormContext = createContext({})
 

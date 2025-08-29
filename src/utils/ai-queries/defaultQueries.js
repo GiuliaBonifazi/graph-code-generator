@@ -1,16 +1,3 @@
-export const CRITERIA_TO_CHECK = [
-    {
-        name: "Not more than four colours",
-        id: "four_colors",
-        desc: "The chart should not contain more than four colors"
-    },
-    {
-        name: "Use an appropriate caption",
-        id: "appropriate_caption",
-        desc: "The caption should accurately describe the contents of the chart"
-    },
-]
-
 export const DEFAULT_QUERIES = {
     QUERY: `
         You will be given data in JSON format to write the code for
