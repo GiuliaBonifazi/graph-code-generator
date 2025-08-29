@@ -1,9 +1,10 @@
 import { useState, createContext } from "react";
 import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_DEFAULT} from "../states/GraphTypeStates"
 import parseFile from "../utils/parsers";
-import QueryBuilder from "../utils/QueryBuilder"
+import QueryBuilder from "../utils/queries/gemini/QueryBuilder"
 import gemini_query from "../utils/queries/gemini/ai_queries";
-import {DEFAULT_QUERIES,  CRITERIA_TO_CHECK} from "../utils/queries/gemini/defaultQueries";
+import {DEFAULT_QUERIES} from "../utils/queries/gemini/defaultQueries";
+import select_all_criteria from "../utils/queries/database/select_queries";
 
 const GraphFormContext = createContext({})
 
@@ -21,7 +22,7 @@ export const GraphFormProvider = ({ children }) => {
             py: "Loading...",
             js: "Loading..."
         },
-        criteria: CRITERIA_TO_CHECK
+        criteria: []
     })
 
     const handleChange = async e => {
@@ -77,8 +78,8 @@ export const GraphFormProvider = ({ children }) => {
             not pure javascript. Don't assume index.htmml exists")
 
         const responseJS = await gemini_query(finalQueryJS)
-
         const responsePython = await gemini_query(finalQueryPython)
+        const criteria = await select_all_criteria()
 
         const graphs = {
             py: responsePython.replace("\`\`\`python","").replace("\`\`\`", "").trim(),
@@ -87,10 +88,11 @@ export const GraphFormProvider = ({ children }) => {
 
         setOptions(data => ({
             ...data,
-            graphs: graphs
+            graphs: graphs,
+            criteria: criteria
         }))
 
-        const newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs))
+        const newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs), criteria)
         setOptions(data => ({
             ...data,
             criteria: JSON.parse(newCriteria.replace("\`\`\`json","").replace("\`\`\`", "").trim())

@@ -34,4 +34,4 @@ export const DEFAULT_QUERIES = {
 
 Object.freeze(DEFAULT_QUERIES)
 
-export default {DEFAULT_QUERIES, CRITERIA_TO_CHECK}
+export default {DEFAULT_QUERIES}
