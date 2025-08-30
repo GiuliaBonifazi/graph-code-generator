@@ -16,8 +16,9 @@ export const DEFAULT_QUERIES = {
         The pie chart needs to be divided in these slices: `,
     BARS: `
         The bars of the graph are decided by this data: `,
-    COLORS: `
-        The graph needs to be of these colours: `,
+    COLORS: "\
+        The graph needs to use the following colours for its shapes (NOT the text, which is to be chosen appropriately). If no colours follow, \
+        pick the colours making sure the contrast between them makes them easy to distinguish from one another. Here are the colours: ",
     TAIL: `
         Return the code for the graph in the following language, in a single file. Reply only with the code and nothing else: `,
     CRITERIA:`
@@ -26,7 +27,7 @@ export const DEFAULT_QUERIES = {
         Do not reply with anything else but the JSON text. Here are the fields for each object in the array:
         - "level", which can have values "E" for a criterion that has not been respected, "W" for one whose correctness could not be determined or "C" for one that has been respected
         - "id", which contains the id of the respective criterion.
-        - "desc", which contains the description of the respective criterion.
+        - "description", which contains the description of the respective criterion.
         - "name", which contains the name of the respective criterion
         The criteria are the following: 
         `

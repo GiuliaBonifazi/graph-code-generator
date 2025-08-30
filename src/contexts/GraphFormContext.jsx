@@ -73,13 +73,19 @@ export const GraphFormProvider = ({ children }) => {
     const onSubmit = async () => {
         const queryBuilder = new QueryBuilder()
 
+        const criteria = await select_all_criteria()
+        setOptions(data => ({
+                ...data,
+                criteria: criteria
+            })
+        )
+
         const finalQueryPython = queryBuilder.buildQueryForType(options, "Python")
         const finalQueryJS = queryBuilder.buildQueryForType(options, "JavaScript", "\nReturn the html with a script tag, \
             not pure javascript. Don't assume index.htmml exists")
 
         const responseJS = await gemini_query(finalQueryJS)
         const responsePython = await gemini_query(finalQueryPython)
-        const criteria = await select_all_criteria()
 
         const graphs = {
             py: responsePython.replace("\`\`\`python","").replace("\`\`\`", "").trim(),
@@ -89,14 +95,15 @@ export const GraphFormProvider = ({ children }) => {
         setOptions(data => ({
             ...data,
             graphs: graphs,
-            criteria: criteria
         }))
 
-        const newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs), criteria)
-        setOptions(data => ({
-            ...data,
-            criteria: JSON.parse(newCriteria.replace("\`\`\`json","").replace("\`\`\`", "").trim())
-        }))
+        const newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs, JSON.stringify(criteria)))
+        if (newCriteria) {
+            setOptions(data => ({
+                ...data,
+                criteria: JSON.parse(newCriteria.replace("\`\`\`json","").replace("\`\`\`", "").trim())
+            }))
+        }
     }
 
     const canToOptions = [...Object.keys(required)].filter(key => key.startsWith("upload")).map(key => options[key]).every(Boolean)

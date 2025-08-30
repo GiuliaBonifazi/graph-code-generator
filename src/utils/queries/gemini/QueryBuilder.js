@@ -57,6 +57,7 @@ class QueryBuilder {
     }
 
     buildQueryCriteriaCheck(graphs, criteria) {
+        console.log(criteria)
         const query = `${DEFAULT_QUERIES.CRITERIA}
         ${criteria}
         These are the graphs:
