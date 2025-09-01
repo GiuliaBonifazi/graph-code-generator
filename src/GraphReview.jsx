@@ -49,7 +49,11 @@ const GraphReview = () => {
                             />
                         })
                     }
-                    <button onClick={onSubmitReports} disabled={!canSubmitReports}>Submit</button>
+                    <button onClick={onSubmitReports} 
+                        disabled={!canSubmitReports} 
+                        className="genericButton w-full p-2">
+                        Submit
+                    </button>
                 </DisclosurePanel>
             </Disclosure>
         </div>
