@@ -10,7 +10,7 @@ function Navbar(props) {
             <Link to="/" className="genericButton border rounded h-fit w-fit p-2 self-end text-center">
                 Choose new dataset
             </Link>
-            <Link to="/" className="genericButton border rounded h-fit w-fit p-2 self-end text-center">
+            <Link to="/report-stats" className="genericButton border rounded h-fit w-fit p-2 self-end text-center">
                 See report stats
             </Link>
         </div>

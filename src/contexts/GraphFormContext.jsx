@@ -1,10 +1,11 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_DEFAULT} from "../states/GraphTypeStates"
 import parseFile from "../utils/parsers";
 import QueryBuilder from "../utils/queries/gemini/QueryBuilder"
 import gemini_query from "../utils/queries/gemini/ai_queries";
 import {DEFAULT_QUERIES} from "../utils/queries/gemini/defaultQueries";
-import select_all_criteria from "../utils/queries/database/select_queries";
+import {select_all_criteria} from "../utils/queries/database/select_queries";
+import {stripReportToInsert, addReportToCriterion} from "../utils/conversions"
 
 const GraphFormContext = createContext({})
 
@@ -24,6 +25,22 @@ export const GraphFormProvider = ({ children }) => {
         },
         criteria: []
     })
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const queryRes = await select_all_criteria()
+
+            if (queryRes) {
+                const withReport = queryRes.map(crit => addReportToCriterion(crit, options.optionsGraphType))
+                setOptions(data => ({
+                        ...data,
+                        criteria: withReport
+                    })
+                )
+            }
+        }
+        fetchData()
+    }, [])
 
     const handleChange = async e => {
         const name = e.target.name
@@ -73,13 +90,6 @@ export const GraphFormProvider = ({ children }) => {
     const onSubmit = async () => {
         const queryBuilder = new QueryBuilder()
 
-        const criteria = await select_all_criteria()
-        setOptions(data => ({
-                ...data,
-                criteria: criteria
-            })
-        )
-
         const finalQueryPython = queryBuilder.buildQueryForType(options, "Python")
         const finalQueryJS = queryBuilder.buildQueryForType(options, "JavaScript", "\nReturn the html with a script tag, \
             not pure javascript. Don't assume index.htmml exists")
@@ -97,11 +107,12 @@ export const GraphFormProvider = ({ children }) => {
             graphs: graphs,
         }))
 
-        const newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs, JSON.stringify(criteria)))
+        const newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs, JSON.stringify(options.criteria)))
+        const parsedNewCriteria = JSON.parse(newCriteria.replace("\`\`\`json","").replace("\`\`\`", "").trim())
         if (newCriteria) {
             setOptions(data => ({
                 ...data,
-                criteria: JSON.parse(newCriteria.replace("\`\`\`json","").replace("\`\`\`", "").trim())
+                criteria: parsedNewCriteria
             }))
         }
     }

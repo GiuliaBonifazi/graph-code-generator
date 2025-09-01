@@ -39,7 +39,13 @@ const GraphReview = () => {
                 <DisclosurePanel className="border rounded text-left lg:w-[20rem]">
                     {
                         options.criteria.map((element) => {
-                            return <CriterionDisclosure key={element.id} id={element.id} level={element.level} name={element.name} desc={element.description}/>
+                            return <CriterionDisclosure 
+                                key={element.criterion_id} 
+                                id={element.criterion_id} 
+                                level={element.level} 
+                                name={element.name} 
+                                desc={element.description}
+                            />
                         })
                     }
                 </DisclosurePanel>

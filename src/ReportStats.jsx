@@ -12,3 +12,5 @@ const ReportStats = () => {
         </p>
     </>
 }
+
+export default ReportStats
