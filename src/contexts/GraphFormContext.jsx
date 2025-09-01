@@ -5,6 +5,7 @@ import QueryBuilder from "../utils/queries/gemini/QueryBuilder"
 import gemini_query from "../utils/queries/gemini/ai_queries";
 import {DEFAULT_QUERIES} from "../utils/queries/gemini/defaultQueries";
 import {select_all_criteria} from "../utils/queries/database/select_queries";
+import {insert_reports} from "../utils/queries/database/insert_queries";
 import {stripReportToInsert, addReportToCriterion} from "../utils/conversions"
 
 const GraphFormContext = createContext({})
@@ -124,6 +125,10 @@ export const GraphFormProvider = ({ children }) => {
         }
     }
 
+    const onSubmitReports = () => {
+        insert_reports(options.criteria.map(report => stripReportToInsert(report)))
+    }
+
     const canToOptions = [...Object.keys(required)].filter(key => key.startsWith("upload")).map(key => options[key]).every(Boolean)
 
     return (
@@ -134,7 +139,8 @@ export const GraphFormProvider = ({ children }) => {
             canToOptions, 
             handleChange, 
             onSubmit,
-            updateSingleCriterion}}
+            updateSingleCriterion,
+            onSubmitReports}}
         >
             {children}
         </GraphFormContext.Provider>
