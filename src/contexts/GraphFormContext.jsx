@@ -64,6 +64,12 @@ export const GraphFormProvider = ({ children }) => {
         }
     }
 
+    const updateSingleCriterion = (e) => {
+        const id = e.target.name
+        const value = !e.target.checked
+        options.criteria.find(c => c.criterion_id == id).correct = value
+    }
+
     const {
         optionsColors,
         optionsX,
@@ -71,6 +77,7 @@ export const GraphFormProvider = ({ children }) => {
         optionsSlices,
         graphs,
         optionsBarData,
+        criteria,
         ...required
     } = options
 
@@ -120,7 +127,15 @@ export const GraphFormProvider = ({ children }) => {
     const canToOptions = [...Object.keys(required)].filter(key => key.startsWith("upload")).map(key => options[key]).every(Boolean)
 
     return (
-        <GraphFormContext.Provider value={{options, setOptions, canSubmit, canToOptions, handleChange, onSubmit}}>
+        <GraphFormContext.Provider value={{
+            options, 
+            setOptions, 
+            canSubmit, 
+            canToOptions, 
+            handleChange, 
+            onSubmit,
+            updateSingleCriterion}}
+        >
             {children}
         </GraphFormContext.Provider>
     )

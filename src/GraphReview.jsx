@@ -4,7 +4,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, 
 import useGraphFormContext from "./hooks/useGraphFormContext"
 
 const GraphReview = () => {
-    const {options} = useGraphFormContext()
+    const {options, updateSingleCriterion} = useGraphFormContext()
 
     return <>
         <Title title="Graph review"></Title>
@@ -45,6 +45,7 @@ const GraphReview = () => {
                                 level={element.level} 
                                 name={element.name} 
                                 desc={element.description}
+                                onChange={updateSingleCriterion}
                             />
                         })
                     }

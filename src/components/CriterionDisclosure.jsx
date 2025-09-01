@@ -1,7 +1,7 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 
 
-function CriterionDisclosure({level, id, name, desc} = props) {
+function CriterionDisclosure({level, id, name, desc, onChange} = props) {
   let levelClass = ""
   switch (level) {
     case"W": 
@@ -20,7 +20,7 @@ function CriterionDisclosure({level, id, name, desc} = props) {
   return <Disclosure key={id + "-disclosure"} as="div" className="flex flex-col text-left">
     <div className={'flex flex-row ' + levelClass + "Background w-full"}>
       <DisclosureButton key={id + "-button"} className={"p-2 text-left hover:border "}>{name}</DisclosureButton>
-      <input type="checkbox" dims="w-fit"></input>
+      <input name={id} type="checkbox" dims="w-fit" onChange={onChange}></input>
     </div>
     <DisclosurePanel key={id + "-panel"} className={"text-left p-2 "  + levelClass + "Highlight"}>
       {desc}
