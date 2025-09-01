@@ -8,35 +8,28 @@ export const ReportStatsProvider = ({ children }) => {
     const [criteria, setCriteria] = useState([])
 
     useEffect(() => {
-        const fetchCriteria = async () => {
-            const queryRes = await select_all_criteria()
+        const fetchData = async () => {
+            const crit = await select_all_criteria()
 
-            if(queryRes) {
-                setCriteria(queryRes)
+            if (crit) {
+                setCriteria(crit)
+            
+                const queryRes = await select_all_reports();
+                if (queryRes) {
+                    const mappedRes = queryRes.map((report) => ({
+                        ...report,
+                        criterion_name: crit.find(c => c.id === report.criterion_id)?.name || "Unknown"
+                    }));
+                    setReports(mappedRes);
+                }
             }
         }
 
-        fetchCriteria()
-    }, [setCriteria])
-
-    useEffect(() => {
-        const fetchReports = async () => {
-            const queryRes = await select_all_reports();
-
-            if (queryRes && criteria) {
-                const mappedRes = queryRes.map((report) => ({
-                    ...report,
-                    criterion_name: criteria.find(c => c.id === report.criterion_id)?.name || "Unknown"
-                }));
-                setReports(mappedRes);
-            }
-        };
-
-        fetchReports();
-    }, [criteria]);
+        fetchData()
+    }, [])
 
     return (
-        <ReportStatsContext.Provider value={{reports}}>
+        <ReportStatsContext.Provider value={{reports, criteria}}>
             {children}
         </ReportStatsContext.Provider>
     )
