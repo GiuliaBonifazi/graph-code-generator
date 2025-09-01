@@ -20,4 +20,12 @@ export function stripReportToInsert(report) {
     }
 }
 
-export default {addReportToCriterion, stripReportToInsert}
+export function stripCriteria(criteria) {
+    return {
+        id: criteria.criterion_id,
+        name: criteria.name,
+        description: criteria.description
+    }
+}
+
+export default {addReportToCriterion, stripReportToInsert, stripCriteria}

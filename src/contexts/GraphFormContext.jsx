@@ -112,7 +112,7 @@ export const GraphFormProvider = ({ children }) => {
         if (newCriteria) {
             setOptions(data => ({
                 ...data,
-                criteria: parsedNewCriteria
+                criteria: parsedNewCriteria.map(crit => addReportToCriterion(crit, options.optionsGraphType))
             }))
         }
     }

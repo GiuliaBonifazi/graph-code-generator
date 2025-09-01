@@ -1,5 +1,6 @@
 import {TYPE_BAR, TYPE_LINE, TYPE_PIE} from "../../../states/GraphTypeStates"
 import {DEFAULT_QUERIES } from "./defaultQueries"
+import { stripCriteria } from "../../conversions"
 
 class QueryBuilder {
     constructor() {
@@ -57,9 +58,9 @@ class QueryBuilder {
     }
 
     buildQueryCriteriaCheck(graphs, criteria) {
-        console.log(criteria)
+        const strippedCriteria = JSON.stringify((JSON.parse(criteria).map(c => stripCriteria(c))))
         const query = `${DEFAULT_QUERIES.CRITERIA}
-        ${criteria}
+        ${strippedCriteria}
         These are the graphs:
         ${graphs.py}
         
