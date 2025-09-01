@@ -26,6 +26,7 @@ export const GraphFormProvider = ({ children }) => {
         },
         criteria: []
     })
+    const [canSubmitReports, setCanSubmitReports] = useState(true)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -97,6 +98,7 @@ export const GraphFormProvider = ({ children }) => {
 
     const onSubmit = async () => {
         const queryBuilder = new QueryBuilder()
+        setCanSubmitReports(true)
 
         const finalQueryPython = queryBuilder.buildQueryForType(options, "Python")
         const finalQueryJS = queryBuilder.buildQueryForType(options, "JavaScript", "\nReturn the html with a script tag, \
@@ -127,6 +129,7 @@ export const GraphFormProvider = ({ children }) => {
 
     const onSubmitReports = () => {
         insert_reports(options.criteria.map(report => stripReportToInsert(report)))
+        setCanSubmitReports(false)
     }
 
     const canToOptions = [...Object.keys(required)].filter(key => key.startsWith("upload")).map(key => options[key]).every(Boolean)
@@ -140,7 +143,8 @@ export const GraphFormProvider = ({ children }) => {
             handleChange, 
             onSubmit,
             updateSingleCriterion,
-            onSubmitReports}}
+            onSubmitReports,
+            canSubmitReports}}
         >
             {children}
         </GraphFormContext.Provider>

@@ -4,7 +4,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, 
 import useGraphFormContext from "./hooks/useGraphFormContext"
 
 const GraphReview = () => {
-    const {options, updateSingleCriterion, onSubmitReports} = useGraphFormContext()
+    const {options, updateSingleCriterion, onSubmitReports, canSubmitReports} = useGraphFormContext()
 
     return <>
         <Title title="Graph review"></Title>
@@ -49,7 +49,7 @@ const GraphReview = () => {
                             />
                         })
                     }
-                    <button onClick={onSubmitReports}>Submit</button>
+                    <button onClick={onSubmitReports} disabled={!canSubmitReports}>Submit</button>
                 </DisclosurePanel>
             </Disclosure>
         </div>
