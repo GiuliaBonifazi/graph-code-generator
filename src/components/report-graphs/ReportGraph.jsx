@@ -9,6 +9,7 @@ import {
   Legend,
 } from 'chart.js'
 import {Bar} from 'react-chartjs-2'
+import { levelToLabel, LEVEL_ALL, levelToColor } from "../../states/ReportLevelStates";
 
 ChartJS.register(
   CategoryScale,
@@ -19,63 +20,46 @@ ChartJS.register(
   Legend
 )
 
-function countBy(array, key) {
-    return array.reduce((accumulator, item) => {
-        const value = item[key]
-        accumulator[value] = (accumulator[value] || 0) + 1
-        return accumulator
-    }, {})
-}
-
 const ReportGraph = ({correct, graph_type}) => {
-    const {reports, criteria} = useReportStatsContext()
-    console.log(graph_type)
-
-    const mappedReports = reports
-        .filter(r => r.correct == correct )
-        .filter(r => r.graph_type_name == graph_type)
-        .map( r => ({
-            level: r.level,
-            name: criteria.find(c => c.id == r.criterion_id).name,
-        }))
-
-    console.log("mapped: " + mappedReports)
+    const {getReportsForGraphsByTypeAndCorrect, criteriaLabels} = useReportStatsContext()
+    const sortedReports = getReportsForGraphsByTypeAndCorrect(graph_type, correct)
+    const datasets = LEVEL_ALL.map(level => ({
+        label: levelToLabel(level),
+        data: sortedReports[level],
+        backgroundColor: levelToColor(level)
+    }))
 
     const data = {
-        labels: criteria.map(c => c.name),
-        datasets: [
-            {
-                label: "Error",
-                data: countBy(mappedReports.filter(r => r.level == "E"), "name"),
-                borderColor: "#000000"
-            },
-            {
-                label: "Warning",
-                data: countBy(mappedReports.filter(r => r.level == "W"), "name"),
-                borderColor: "#000000",
-            },
-            {
-                label: "Correct",
-                data: countBy(mappedReports.filter(r => r.level == "C"), "name"),
-                borderColor: "#000000"
-            }
-        ]
+        labels: criteriaLabels,
+        datasets: datasets,
+        barThickness: 400
     }
 
     const options = {
         responsive: true,
+        maintainAspectRatio: true,
         plugins: {
             legend: {
                 position: 'top',
             },
             title: {
                 display: true,
-                text: 'Reports'
+                text: (correct ? "Correct " : "Wrong ") + 'Reports'
+            }
+        },
+        scales: {
+            y: {
+                suggestedMax: 10,
+                ticks: {
+                    stepSize: 1
+                }
             }
         }
     }
 
-    return <Bar options={options} data={data}></Bar>
+    return <div className="w-full h-full">
+        <Bar options={options} data={data}></Bar>
+    </div>
 }
 
 export default ReportGraph
