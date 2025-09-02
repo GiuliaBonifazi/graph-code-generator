@@ -79,7 +79,7 @@ const GraphOptions = () => {
                 </Menu>
             </div>
             <form 
-                className="flex flex-col justify-start space-y-4 mx-8 lg:mx-40"
+                className="flex flex-col items-center justify-center space-y-4 mx-8 lg:mx-40"
                 onSubmit={(event) => {
                     event.preventDefault()
                     onSubmit()
@@ -92,7 +92,7 @@ const GraphOptions = () => {
                     </div>
                 </div>
                 <DataPlacementInput></DataPlacementInput>
-                <div id="picked-colors-container" className="flex flex-col lg:flex-row w-full lg:space-x-4 min-h-24">
+                <div id="picked-colors-container" className="flex flex-col border rounded p-8 w-full min-h-24 items-center">
                     <div className="flex flex-row w-fit min-h-24">
                         <GenericInput labelText="Pick your colours" id="colour-input" type="color" dim="h-8 w-12 mr-8" onChange={onNewPickedColor}/>
                         <GenericButton label="Confirm color" dims="h-fit p-2 w-fit" onClick={onConfirmPickedColor}/>

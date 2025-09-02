@@ -37,7 +37,7 @@ class QueryBuilder {
         this.query += this.type + this.data + this.colors
         switch (type) {
             case TYPE_BAR:
-                const barData = DEFAULT_QUERIES.BARS + options.optionsBarData
+                const barData = DEFAULT_QUERIES.BARS + options.optionsBarData.toString()
                 this.query += barData
             case TYPE_LINE:
                 const xAxis = DEFAULT_QUERIES.XAXIS + options.optionsX
@@ -45,7 +45,7 @@ class QueryBuilder {
                 this.query += xAxis + yAxis
                 break
             case TYPE_PIE:
-                const slices = DEFAULT_QUERIES.SLICES + options.optionsSlices.toString()
+                const slices = DEFAULT_QUERIES.SLICES + options.optionsSlices
                 this.query += slices
                 break
             default:

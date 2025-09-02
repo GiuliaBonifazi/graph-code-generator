@@ -16,8 +16,8 @@ export const GraphFormProvider = ({ children }) => {
         optionsGraphType: TYPE_DEFAULT,
         optionsX: "",
         optionsY: "",
-        optionsSlices: [],
-        optionsBarData: "",
+        optionsSlices: "",
+        optionsBarData: [],
         graphs: {
             py: "Loading...",
             js: "Loading..."
@@ -44,7 +44,7 @@ export const GraphFormProvider = ({ children }) => {
 
     const handleChange = async e => {
         const name = e.target.name
-        
+        console.log(e.target.value)
         if (name == "uploadData") {
             let res = null
 
