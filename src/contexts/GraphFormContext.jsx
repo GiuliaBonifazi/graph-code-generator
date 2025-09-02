@@ -19,7 +19,6 @@ export const GraphFormProvider = ({ children }) => {
         optionsY: "",
         optionsSlices: [],
         optionsBarData: "",
-        optionsPrompt: DEFAULT_QUERIES.QUERY,
         graphs: {
             py: "Loading...",
             js: "Loading..."
@@ -29,7 +28,7 @@ export const GraphFormProvider = ({ children }) => {
     const [canSubmitReports, setCanSubmitReports] = useState(false)
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchCriteria = async () => {
             const queryRes = await select_all_criteria()
 
             if (queryRes) {
@@ -41,7 +40,7 @@ export const GraphFormProvider = ({ children }) => {
                 )
             }
         }
-        fetchData()
+        fetchCriteria()
     }, [])
 
     const handleChange = async e => {

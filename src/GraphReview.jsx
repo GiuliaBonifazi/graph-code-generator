@@ -57,10 +57,10 @@ const GraphReview = () => {
                 </DisclosurePanel>
             </Disclosure>
         </div>
-        <div className="flex flex-col w-full px-8 pb-8">
+        {/* <div className="flex flex-col w-full px-8 pb-8">
             <h2 className="text-left">Used prompt:</h2>
             <textarea className="pasteArea border rounded resize-y min-w-[20rem] h-40" placeholder="Prompt goes here..." defaultValue={options.optionsPrompt}></textarea>
-        </div>
+        </div> */}
     </>
 }
 
