@@ -82,8 +82,10 @@ const GraphOptions = () => {
                 className="flex flex-col items-center justify-center space-y-4 mx-8 lg:mx-40"
                 onSubmit={(event) => {
                     event.preventDefault()
-                    onSubmit()
-                    navigate('/graph-review/')
+                    if (canSubmit) {
+                        onSubmit()
+                        navigate('/graph-review/')
+                    }
                 }}   
                 >
                 <div className="w-full flex flex-row justify-center items-center">
