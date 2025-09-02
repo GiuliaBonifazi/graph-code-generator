@@ -37,7 +37,7 @@ const ReportGraph = ({correct, graph_type}) => {
 
     const options = {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: 'top',
@@ -57,8 +57,8 @@ const ReportGraph = ({correct, graph_type}) => {
         }
     }
 
-    return <div className="w-full h-full overflow-x-scroll">
-        <Bar options={options} data={data}></Bar>
+    return <div className="w-full h-[25rem] overflow-x-scroll">
+        <Bar className="p-4" options={options} data={data}></Bar>
     </div>
 }
 
