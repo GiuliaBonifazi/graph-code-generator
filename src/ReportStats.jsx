@@ -10,11 +10,13 @@ const ReportStats = () => {
 
     return <>
         <Title title="Report Statistics"></Title>
-        {
-            TYPE_ALL.map(type => {
-                return <ReportGraphContainer key={type + "container"} type={type}></ReportGraphContainer>
-            })
-        }
+        <div className="flex flex-col space-y-8  px-8">
+            {
+                TYPE_ALL.map(type => {
+                    return <ReportGraphContainer key={type + "container"} type={type}></ReportGraphContainer>
+                })
+            }
+        </div>
     </>
 }
 

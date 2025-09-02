@@ -57,7 +57,7 @@ const ReportGraph = ({correct, graph_type}) => {
         }
     }
 
-    return <div className="w-full h-full">
+    return <div className="w-full h-full overflow-x-scroll">
         <Bar options={options} data={data}></Bar>
     </div>
 }
