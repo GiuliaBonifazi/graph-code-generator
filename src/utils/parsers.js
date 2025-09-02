@@ -30,11 +30,13 @@ function parseFile (file) {
                 case "text/tsv":
                     return resolve(parseCsvOrTsv(data, "\t"))
                 case "text/plain":
-                    return resolve({
-                        hasFailed: true,
-                        data: data,
-                        message: ".txt not yet implemented"
-                    })
+                    const csvAttempt = parseCsvOrTsv(data, ",")
+                    if (csvAttempt.hasFailed) {
+                        const tsvAttempt = parseCsvOrTsv(data, "\t")
+                        return resolve(tsvAttempt)
+                    } else {
+                        return resolve(csvAttempt)
+                    }
                 default:
                     return resolve({
                         hasFailed: true,
@@ -56,32 +58,42 @@ function parseFile (file) {
 }
 
 function parseCsvOrTsv(data, delimiter) {
-    const splitData = data.replaceAll("\"", "").split(/\r?\n/).filter(row => row != "")
-    const headers = splitData[0]
-        .split(delimiter)
-        .map(header => {
-            return {
-                header: header,
-                accessorKey: header.toLowerCase().replace(" ", "_")
-            }
-        })
-    const rows = splitData
-        .slice(1)
-        .map((row) => {
-            const splitByCell = row.trim().split(delimiter).map((cell, column_index) => {
+    try {
+        const splitData = data.replaceAll("\"", "").split(/\r?\n/).filter(row => row != "")
+        const headers = splitData[0]
+            .split(delimiter)
+            .map(header => {
                 return {
-                    [headers[column_index].accessorKey]: cell
+                    header: header,
+                    accessorKey: header.toLowerCase().replace(" ", "_")
                 }
             })
-            return Object.assign({}, ...splitByCell)
-        })
-    return {
-        hasFailed: false,
-        data: {
-            headers: headers,
-            rows: rows
-        },
-        message: "Success"
+        console.log(headers)
+        const rows = splitData
+            .slice(1)
+            .map((row) => {
+                const splitByCell = row.trim().split(delimiter).map((cell, column_index) => {
+                    return {
+                        [headers[column_index].accessorKey]: cell
+                    }
+                })
+                return Object.assign({}, ...splitByCell)
+            })
+        console.log(rows)
+        return {
+            hasFailed: false,
+            data: {
+                headers: headers,
+                rows: rows
+            },
+            message: "Success"
+        }
+    } catch {
+        return {
+            hasFailed: true,
+            data: {},
+            message: "Format is neither CSV not TSV"
+        }
     }
 }
 

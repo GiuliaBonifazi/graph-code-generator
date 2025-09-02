@@ -6,8 +6,6 @@ import { Title } from "./components/Title"
 
 
 const ReportStats = () => {
-    const {reports, criteria} = useReportStatsContext()
-
     return <>
         <Title title="Report Statistics"></Title>
         <div className="flex flex-col space-y-8  px-8">
