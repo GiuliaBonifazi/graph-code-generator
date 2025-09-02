@@ -24,7 +24,7 @@ function CriterionDisclosure({level, id, name, desc, onChange} = props) {
   }
   return <Disclosure key={id + "-disclosure"} as="div" className="flex flex-col text-left">
     <div className={'flex flex-row ' + levelClass + "Background w-full items-center"}>
-      <DisclosureButton key={id + "-button"} className={"p-2 text-left hover:border "}>{name}</DisclosureButton>
+      <DisclosureButton key={id + "-button"} className={"p-2 text-left hover:border "}>{`${level}: ${name}`}</DisclosureButton>
       {icon}
       <input name={id} type="checkbox" dims="w-fit" onChange={onChange}></input>
     </div>
