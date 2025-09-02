@@ -87,7 +87,7 @@ const GraphOptions = () => {
                 }}   
                 >
                 <div className="w-full flex flex-row justify-center items-center">
-                    <div className="overflow-auto h-[15rem] lg:h-[20rem] w-fit">
+                    <div className="overflow-auto h-fit max-h-60 w-fit max-w-96">
                         <DataTable></DataTable>
                     </div>
                 </div>
