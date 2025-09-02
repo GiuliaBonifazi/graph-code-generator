@@ -25,6 +25,8 @@ export const GraphFormProvider = ({ children }) => {
         criteria: []
     })
     const [canSubmitReports, setCanSubmitReports] = useState(false)
+    const [isPopUpOpen, setPopUpOpen] = useState(false)
+    const [popUpMessage, setPopUpMessage] = useState("")
 
     useEffect(() => {
         const fetchCriteria = async () => {
@@ -60,7 +62,8 @@ export const GraphFormProvider = ({ children }) => {
                     [name]: res.data
                 }))
             } else {
-                console.log("Failed: " + res.message)
+                setPopUpMessage(res.message)
+                setPopUpOpen(true)
             }
         } else {
             const value = e.target.value
@@ -149,7 +152,10 @@ export const GraphFormProvider = ({ children }) => {
             onSubmit,
             updateSingleCriterion,
             onSubmitReports,
-            canSubmitReports}}
+            canSubmitReports,
+            isPopUpOpen,
+            setPopUpOpen,
+            popUpMessage}}
         >
             {children}
         </GraphFormContext.Provider>

@@ -72,7 +72,6 @@ function parseDsv(data, delimiter) {
                     accessorKey: header.toLowerCase().replace(" ", "_")
                 }
             })
-        console.log(headers)
         const rows = splitData
             .slice(1)
             .map((row) => {
@@ -83,14 +82,21 @@ function parseDsv(data, delimiter) {
                 })
                 return Object.assign({}, ...splitByCell)
             })
-        console.log(rows)
-        return {
-            hasFailed: false,
-            data: {
-                headers: headers,
-                rows: rows
-            },
-            message: "Success"
+        if (headers.length == 1) {
+            return {
+                hasFailed: true,
+                data: {},
+                message: "Parsing error or unsuitable data"
+            }
+        } else {
+            return {
+                hasFailed: false,
+                data: {
+                    headers: headers,
+                    rows: rows
+                },
+                message: "Success"
+            }
         }
     } catch {
         return {

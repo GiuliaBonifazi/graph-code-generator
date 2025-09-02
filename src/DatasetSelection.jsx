@@ -1,6 +1,7 @@
 import {Title} from './components/Title'
 import { useNavigate } from 'react-router-dom'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
+import PopUpDialog from './components/PopUpDialog'
 import useGraphFormContext from "./hooks/useGraphFormContext"
 
 
@@ -20,6 +21,7 @@ const DatasetSelection = () => {
                 navigate('/graph-options/')
             }
         }>
+            <PopUpDialog></PopUpDialog>
             <TabGroup >
                 <TabList className="space-x-2">
                     <Tab  className="rounded border genericButton w-fit h-fit p-2">Paste</Tab>

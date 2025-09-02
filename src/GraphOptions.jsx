@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom"
 import useGraphFormContext from "./hooks/useGraphFormContext"
 import {TYPE_ALL} from "./states/GraphTypeStates"
 import DataTable from "./components/table/DataTable"
+import PopUpDialog from "./components/PopUpDialog"
 
 
 const GraphOptions = () => {
@@ -16,7 +17,7 @@ const GraphOptions = () => {
     const [pickedColors, setPickedColors] = useState([])
     const navigate = useNavigate()
 
-    const {handleChange, canSubmit, options, onSubmit} = useGraphFormContext()
+    const {handleChange, canSubmit, options, onSubmit, isPopUpOpen, setPopUpOpen, popUpMessage} = useGraphFormContext()
 
     const onConfirmPickedColor = () => {
         if (currColor != null && !pickedColors.includes(currColor)) {
@@ -89,10 +90,11 @@ const GraphOptions = () => {
                 }}   
                 >
                 <div className="w-full flex flex-row justify-center items-center">
-                    <div className="overflow-auto h-fit max-h-60 w-fit max-w-96">
+                    <div className="overflow-auto h-fit max-h-60 w-fit max-w-96 lg:max-w-200">
                         <DataTable></DataTable>
                     </div>
                 </div>
+                <PopUpDialog></PopUpDialog>
                 <DataPlacementInput></DataPlacementInput>
                 <div id="picked-colors-container" className="flex flex-col border rounded p-8 w-full min-h-24 items-center">
                     <div className="flex flex-row w-fit min-h-24">
