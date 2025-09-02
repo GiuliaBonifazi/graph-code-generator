@@ -1,4 +1,4 @@
-import Title from "./components/Title"
+import {Title} from "./components/Title"
 import GenericInput from "./components/GenericInput"
 import PickedColour from "./components/PickedColour"
 import DataPlacementInput from "./components/DataPlacementInput"

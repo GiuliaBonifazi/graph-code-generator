@@ -20,7 +20,6 @@ export const ReportStatsProvider = ({ children }) => {
                         ...report,
                         criterion_name: crit.find(c => c.id === report.criterion_id).name
                     }));
-                    console.log(mappedRes)
                     setReports(mappedRes);
                     setCriteriaLabels(crit.map(c => c.name))
                 }

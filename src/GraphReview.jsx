@@ -1,4 +1,4 @@
-import Title from "./components/Title"
+import {Title} from "./components/Title"
 import CriterionDisclosure from "./components/CriterionDisclosure"
 import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import useGraphFormContext from "./hooks/useGraphFormContext"

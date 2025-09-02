@@ -26,7 +26,7 @@ export const GraphFormProvider = ({ children }) => {
         },
         criteria: []
     })
-    const [canSubmitReports, setCanSubmitReports] = useState(true)
+    const [canSubmitReports, setCanSubmitReports] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -98,7 +98,6 @@ export const GraphFormProvider = ({ children }) => {
 
     const onSubmit = async () => {
         const queryBuilder = new QueryBuilder()
-        setCanSubmitReports(true)
 
         const finalQueryPython = queryBuilder.buildQueryForType(options, "Python")
         const finalQueryJS = queryBuilder.buildQueryForType(options, "JavaScript", "\nReturn the html with a script tag, \
@@ -124,6 +123,7 @@ export const GraphFormProvider = ({ children }) => {
                 ...data,
                 criteria: parsedNewCriteria.map(crit => addReportToCriterion(crit, options.optionsGraphType))
             }))
+            setCanSubmitReports(true)
         }
     }
 

@@ -1,4 +1,4 @@
-import Title from './components/Title'
+import {Title} from './components/Title'
 import { useNavigate } from 'react-router-dom'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import useGraphFormContext from "./hooks/useGraphFormContext"
@@ -10,7 +10,7 @@ const DatasetSelection = () => {
     const {handleChange, canToOptions} = useGraphFormContext()
 
     return <>
-        <Title title='Upload your dataset'/>
+        <Title title='Upload your dataset'></Title>
         <div className='lg:flex lg:w-fill lg:content-center lg:justify-center space-x-4 mx-4 lg:mx-0'>
         <form 
         className='flex flex-col justify-center'
