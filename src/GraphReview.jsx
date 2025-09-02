@@ -3,6 +3,7 @@ import CriterionDisclosure from "./components/CriterionDisclosure"
 import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import useGraphFormContext from "./hooks/useGraphFormContext"
 import { IconContext } from "react-icons"
+import PopUpDialog from "./components/PopUpDialog"
 
 const LEVEL_LEGEND = `Check the checkbox beside the criterion if the LLM evaluation was wrong. 
 The levels are:
@@ -15,6 +16,7 @@ const GraphReview = () => {
 
     return <>
         <Title title="Graph review"></Title>
+        <PopUpDialog></PopUpDialog>
         <div className="w-full h-full flex flex-col lg:flex-row py-8 px-8 gap-4">
             <div className="flex flex-col flex-grow space-y-2">
                 <h2 className="text-left self-start">Your graph code</h2>

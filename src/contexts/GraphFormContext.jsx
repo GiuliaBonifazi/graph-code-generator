@@ -28,6 +28,11 @@ export const GraphFormProvider = ({ children }) => {
     const [isPopUpOpen, setPopUpOpen] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState("")
 
+    const sendPopUP = (message) => {
+        setPopUpMessage(message)
+        setPopUpOpen(true)
+    }
+
     useEffect(() => {
         const fetchCriteria = async () => {
             const queryRes = await select_all_criteria()
@@ -62,8 +67,7 @@ export const GraphFormProvider = ({ children }) => {
                     [name]: res.data
                 }))
             } else {
-                setPopUpMessage(res.message)
-                setPopUpOpen(true)
+                sendPopUP(res.message)
             }
         } else {
             const value = e.target.value
@@ -110,29 +114,66 @@ export const GraphFormProvider = ({ children }) => {
         const finalQueryPython = queryBuilder.buildQueryForType(options, "Python")
         const finalQueryJS = queryBuilder.buildQueryForType(options, "JavaScript", "\nReturn the html with a script tag, \
             not pure javascript. Don't assume index.htmml exists")
-
-        const responseJS = await gemini_query(finalQueryJS)
-        const responsePython = await gemini_query(finalQueryPython)
-
-        const graphs = {
-            py: responsePython.replace("\`\`\`python","").replace("\`\`\`", "").trim(),
-            js: responseJS.replace("\`\`\`html","").replace("\`\`\`", "").trim()
+        
+        let responseJS = {
+            ok: false,
+            text: ""
+        }
+        let responsePython = {
+            ok: false,
+            text: ""
+        }
+        try {
+            responseJS = await gemini_query(finalQueryJS)
+        } catch {
+            sendPopUP("Error fetching Gemini response. Please reload.")
         }
 
-        setOptions(data => ({
-            ...data,
-            graphs: graphs,
-        }))
+        try {
+            responsePython = await gemini_query(finalQueryPython)
+        } catch {
+            sendPopUP("Error fetching Gemini response. Please reload.")
+        }
 
-        const newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs, JSON.stringify(options.criteria)))
-        const parsedNewCriteria = JSON.parse(newCriteria.replace("\`\`\`json","").replace("\`\`\`", "").trim())
-        if (newCriteria) {
+        if (!responseJS.ok || !responsePython.ok) {
+            sendPopUP("Error fetching Gemini response. Please reload.")
+        } else {
+            const graphs = {
+                py: responsePython.text.replace("\`\`\`python","").replace("\`\`\`", "").trim(),
+                js: responseJS.text.replace("\`\`\`html","").replace("\`\`\`", "").trim()
+            }
+    
             setOptions(data => ({
                 ...data,
-                criteria: parsedNewCriteria.map(crit => addReportToCriterion(crit, options.optionsGraphType))
+                graphs: graphs,
             }))
-            setCanSubmitReports(true)
+            
+            let newCriteria = {
+                ok: false,
+                text: ""
+            }
+            try {
+                newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs, JSON.stringify(options.criteria)))
+            } catch {
+                sendPopUP("Error fetching Gemini response. Please reload.")
+            }
+    
+            if (!newCriteria.ok) {
+                setPopUpMessage("Error fetching Gemini criteria query response, please reload.")
+                setPopUpOpen(true)
+            } else {
+                const parsedNewCriteria = JSON.parse(newCriteria.text.replace("\`\`\`json","").replace("\`\`\`", "").trim())
+                if (newCriteria) {
+                    setOptions(data => ({
+                        ...data,
+                        criteria: parsedNewCriteria.map(crit => addReportToCriterion(crit, options.optionsGraphType))
+                    }))
+                    setCanSubmitReports(true)
+                }
+            }
+    
         }
+
     }
 
     const onSubmitReports = () => {
