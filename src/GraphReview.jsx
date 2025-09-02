@@ -36,6 +36,7 @@ const GraphReview = () => {
             </div>
             <Disclosure as="div" className="flex flex-col self-start w-[20rem] shrink-0">
                 <DisclosureButton className="border rounded genericButton w-fit h-fit p-2">Check criteria</DisclosureButton>
+                <p>Check the checkbox beside the criterion if the evaluation by the LLM was wrong.</p>
                 <DisclosurePanel className="border rounded text-left lg:w-[20rem]">
                     {
                         options.criteria.map((element) => {

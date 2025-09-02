@@ -20,6 +20,8 @@ ChartJS.register(
   Legend
 )
 
+ChartJS.defaults.color ="#021620"
+
 const ReportGraph = ({correct, graph_type}) => {
     const {getReportsForGraphsByTypeAndCorrect, criteriaLabels} = useReportStatsContext()
     const sortedReports = getReportsForGraphsByTypeAndCorrect(graph_type, correct)
@@ -32,7 +34,7 @@ const ReportGraph = ({correct, graph_type}) => {
     const data = {
         labels: criteriaLabels,
         datasets: datasets,
-        barThickness: 400
+        barThickness: 200
     }
 
     const options = {
