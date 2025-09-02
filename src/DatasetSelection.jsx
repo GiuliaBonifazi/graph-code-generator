@@ -32,7 +32,7 @@ const DatasetSelection = () => {
                             className='pasteArea resize-y w-full h-full'
                             placeholder="Paste your dataset here"
                             name="uploadData"
-                            onChange={handleChange}
+                            onBlur={handleChange}
                         />
                     </TabPanel>
                     <TabPanel className="w-full h-full">

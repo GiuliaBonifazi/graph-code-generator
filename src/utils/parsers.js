@@ -1,6 +1,6 @@
 
 
-function parseFile (file) {
+export function parseFile (file) {
     return new Promise((resolve, reject) => {
         if (!file) {
             return resolve({
@@ -26,17 +26,11 @@ function parseFile (file) {
             
             switch (type) {
                 case "text/csv":
-                    return resolve(parseCsvOrTsv(data, ","))
+                    return resolve(parseDsv(data, ","))
                 case "text/tsv":
-                    return resolve(parseCsvOrTsv(data, "\t"))
+                    return resolve(parseDsv(data, "\t"))
                 case "text/plain":
-                    const csvAttempt = parseCsvOrTsv(data, ",")
-                    if (csvAttempt.hasFailed) {
-                        const tsvAttempt = parseCsvOrTsv(data, "\t")
-                        return resolve(tsvAttempt)
-                    } else {
-                        return resolve(csvAttempt)
-                    }
+                    return resolve(tryParseDsv(data))
                 default:
                     return resolve({
                         hasFailed: true,
@@ -57,7 +51,17 @@ function parseFile (file) {
     })
 }
 
-function parseCsvOrTsv(data, delimiter) {
+export function tryParseDsv(data) {
+    const csvAttempt = parseDsv(data, ",")
+    if (csvAttempt.hasFailed) {
+        const tsvAttempt = parseDsv(data, "\t")
+        return tsvAttempt
+    } else {
+        return csvAttempt
+    }
+}
+
+function parseDsv(data, delimiter) {
     try {
         const splitData = data.replaceAll("\"", "").split(/\r?\n/).filter(row => row != "")
         const headers = splitData[0]
@@ -97,4 +101,4 @@ function parseCsvOrTsv(data, delimiter) {
     }
 }
 
-export default parseFile
+export default {parseFile, tryParseDsv}

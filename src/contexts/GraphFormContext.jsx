@@ -1,9 +1,8 @@
 import { useState, createContext, useEffect } from "react";
 import {TYPE_BAR, TYPE_LINE, TYPE_PIE, TYPE_DEFAULT} from "../states/GraphTypeStates"
-import parseFile from "../utils/parsers";
+import {parseFile, tryParseDsv} from "../utils/parsers";
 import QueryBuilder from "../utils/queries/gemini/QueryBuilder"
 import gemini_query from "../utils/queries/gemini/ai_queries";
-import {DEFAULT_QUERIES} from "../utils/queries/gemini/defaultQueries";
 import {select_all_criteria} from "../utils/queries/database/select_queries";
 import {insert_reports} from "../utils/queries/database/insert_queries";
 import {stripReportToInsert, addReportToCriterion} from "../utils/conversions"
@@ -46,8 +45,15 @@ export const GraphFormProvider = ({ children }) => {
     const handleChange = async e => {
         const name = e.target.name
         
-        if (e.target.type == "file") {
-            const res = await parseFile(e.target.files[0])
+        if (name == "uploadData") {
+            let res = null
+
+            if (e.target.type == "file"){
+                res = await parseFile(e.target.files[0])
+            } else {
+                res = tryParseDsv(e.target.value)
+            }
+
             if (!res.hasFailed) {
                 setOptions(data => ({
                     ...data,
