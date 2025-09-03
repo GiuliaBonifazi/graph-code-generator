@@ -45,30 +45,28 @@ const GraphReview = () => {
             </div>
             <Disclosure as="div" className="flex flex-col self-start lg:w-[20rem] shrink-0">
                 <DisclosureButton className="border rounded genericButton w-fit h-fit p-2">Check criteria</DisclosureButton>
-                <IconContext.Provider value={{size:"2rem"}}>
-                    <div className="flex flex-col md:flex-row lg:flex-col">
-                        <pre className="md:w-[30rem] w-fit lg:w-fit">{LEVEL_LEGEND}</pre>
-                        <DisclosurePanel className="border rounded text-left w-[20rem]">
-                            {
-                                options.criteria.map((element) => {
-                                    return <CriterionDisclosure 
-                                        key={element.criterion_id} 
-                                        id={element.criterion_id} 
-                                        level={element.level} 
-                                        name={element.name} 
-                                        desc={element.description}
-                                        onChange={updateSingleCriterion}
-                                    />
-                                })
-                            }
-                            <button onClick={onSubmitReports} 
-                                disabled={!canSubmitReports} 
-                                className="genericButton w-full p-2">
-                                Submit
-                            </button>
-                        </DisclosurePanel>
-                    </div>
-                </IconContext.Provider>
+                <div className="flex flex-col md:flex-row lg:flex-col">
+                    <pre className="md:w-[30rem] w-fit lg:w-fit">{LEVEL_LEGEND}</pre>
+                    <DisclosurePanel className="border rounded text-left w-[20rem]">
+                        {
+                            options.criteria.map((element) => {
+                                return <CriterionDisclosure 
+                                    key={element.criterion_id} 
+                                    id={element.criterion_id} 
+                                    level={element.level} 
+                                    name={element.name} 
+                                    desc={element.description}
+                                    onChange={updateSingleCriterion}
+                                />
+                            })
+                        }
+                        <button onClick={onSubmitReports} 
+                            disabled={!canSubmitReports} 
+                            className="genericButton w-full p-2">
+                            Submit
+                        </button>
+                    </DisclosurePanel>
+                </div>
             </Disclosure>
         </div>
         {/* <div className="flex flex-col w-full px-8 pb-8">
