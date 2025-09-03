@@ -2,7 +2,6 @@ import {Title} from "./components/Title"
 import CriterionDisclosure from "./components/CriterionDisclosure"
 import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import useGraphFormContext from "./hooks/useGraphFormContext"
-import { IconContext } from "react-icons"
 import PopUpDialog from "./components/PopUpDialog"
 
 const LEVEL_LEGEND = `Check the checkbox beside the criterion if the LLM evaluation was wrong. 
