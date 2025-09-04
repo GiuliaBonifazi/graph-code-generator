@@ -62,7 +62,7 @@ function DataPlacementInput() {
             label="Slices: ">
         </SelectInput>
     } else if  (options.optionsGraphType == TYPE_BAR) {
-        return <div className="flex flex-col lg:flex-row w-full lg:space-x-4 space-y-4 min-h-24">
+        return <div className="flex flex-col items-center w-full space-y-4 min-h-24 border rounded p-4">
             <div className="flex flex-row space-x-2">
                 <SelectInput
                     label="Bars: "

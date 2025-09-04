@@ -9,14 +9,14 @@ const SelectInput = ({values, onClick, currValue, inputName, label}) => {
                     {currValue ? currValue : "Choose a value"}
                 </MenuButton>
 
-                <MenuItems className="absolute z-50 flex flex-col">
+                <MenuItems className="absolute z-50 flex flex-col border rounded">
                     {
                         values.map((value) => {
                             return <MenuItem key={value.header.replace(" " + "-") + "-menuitem"}>
                                 <button
                                 name={inputName}
                                 value={value.header}
-                                className="genericButton h-fit p-2 w-24 text-center"
+                                className="genericButton h-fit p-2 w-24 text-center border"
                                 onClick={onClick}
                                 tabIndex={0}>
                                     {value.header}
