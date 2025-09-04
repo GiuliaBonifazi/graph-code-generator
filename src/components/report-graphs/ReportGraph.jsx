@@ -34,7 +34,6 @@ const ReportGraph = ({correct, graph_type}) => {
     const data = {
         labels: criteriaLabels,
         datasets: datasets,
-        barThickness: 200
     }
 
     const options = {
@@ -44,10 +43,6 @@ const ReportGraph = ({correct, graph_type}) => {
             legend: {
                 position: 'top',
             },
-            title: {
-                display: true,
-                text: (correct ? "Correct " : "Wrong ") + 'Reports'
-            }
         },
         scales: {
             y: {
@@ -59,8 +54,11 @@ const ReportGraph = ({correct, graph_type}) => {
         }
     }
 
-    return <div className="w-full h-[25rem] overflow-x-scroll">
-        <Bar className="p-4" options={options} data={data}></Bar>
+    return <div className="w-full overflow-x-scroll">
+        <h3>{(correct ? "Correct " : "Wrong ") + 'Reports'}</h3>
+        <div className={`min-w-[100rem] h-[25rem]`}>
+            <Bar className={`p-4`} options={options} data={data}></Bar>
+        </div>
     </div>
 }
 
