@@ -1,7 +1,7 @@
 # How to use
 ## 1. Create .env file
 The project requires a Gemini API key to function. Create a .env file in the project main folder and
-write VITE_API_KEY="your_key"
+write VITE_API_KEY=your_key
 
 ## 2. Download dependencies
 Type `npm install` in your terminal and download the dependencies
