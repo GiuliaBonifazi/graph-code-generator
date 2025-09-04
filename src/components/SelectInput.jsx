@@ -16,6 +16,7 @@ const SelectInput = ({values, onClick, currValue, inputName, label}) => {
                                 <button
                                 name={inputName}
                                 value={value.header}
+                                type="button"
                                 className="genericButton h-fit p-2 w-24 text-center border"
                                 onClick={onClick}
                                 tabIndex={0}>

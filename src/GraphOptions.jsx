@@ -49,7 +49,7 @@ const GraphOptions = () => {
 
     return <>
         <Title title="Graph options"></Title>
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-4 py-8">
             <div className="flex justify-center items-center">
                 <Menu as="div" className="relative">
                     <MenuButton className="genericButton border rounded h-fit p-2 w-48 text-center">
@@ -113,10 +113,11 @@ const GraphOptions = () => {
                         }
                     </div>
                 </div>
-                <input 
+                <button 
                     className='genericButton border rounded h-fit w-24 p-2 self-end mt-4' 
                     type='submit'>
-                </input>
+                        Submit
+                </button>
             </form>
         </div>
     </>
