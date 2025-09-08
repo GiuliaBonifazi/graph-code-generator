@@ -51,7 +51,6 @@ export const GraphFormProvider = ({ children }) => {
 
     const handleChange = async e => {
         const name = e.target.name
-        console.log(e.target.value)
         if (name == "uploadData") {
             let res = null
 
