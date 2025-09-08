@@ -11,7 +11,7 @@ The levels are:
 - C for correct if the criterion was respected.`
 
 const GraphReview = () => {
-    const {options, updateSingleCriterion, onSubmitReports, canSubmitReports} = useGraphFormContext()
+    const {graphs, updateSingleCriterion, onSubmitReports, canSubmitReports, criteria} = useGraphFormContext()
 
     return <>
         <Title title="Graph review"></Title>
@@ -28,14 +28,14 @@ const GraphReview = () => {
                         <TabPanel>
                             <pre className="whitespace-pre-wrap max-w-full break-words overflow-auto w-full h-full">
                                 <code className="max-w-full break-words">
-                                    {options.graphs.js}
+                                    {graphs.js}
                                 </code>
                             </pre>
                         </TabPanel>
                         <TabPanel>
                             <pre className="whitespace-pre-wrap max-w-full break-words overflow-auto w-full h-full">
                                 <code className="max-w-full break-words">
-                                    {options.graphs.py}
+                                    {graphs.py}
                                 </code>
                             </pre>
                         </TabPanel>
@@ -48,7 +48,7 @@ const GraphReview = () => {
                     <pre className="md:w-[30rem] w-fit lg:w-fit">{LEVEL_LEGEND}</pre>
                     <DisclosurePanel className="border rounded text-left w-[20rem]">
                         {
-                            options.criteria.map((element) => {
+                            criteria.map((element) => {
                                 return <CriterionDisclosure 
                                     key={element.criterion_id} 
                                     id={element.criterion_id} 
@@ -68,10 +68,6 @@ const GraphReview = () => {
                 </div>
             </Disclosure>
         </div>
-        {/* <div className="flex flex-col w-full px-8 pb-8">
-            <h2 className="text-left">Used prompt:</h2>
-            <textarea className="pasteArea border rounded resize-y min-w-[20rem] h-40" placeholder="Prompt goes here..." defaultValue={options.optionsPrompt}></textarea>
-        </div> */}
     </>
 }
 

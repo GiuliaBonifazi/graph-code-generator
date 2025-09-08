@@ -18,15 +18,13 @@ export const GraphFormProvider = ({ children }) => {
         optionsY: "",
         optionsSlices: "",
         optionsBarData: [],
-        graphs: {
-            py: "Loading...",
-            js: "Loading..."
-        },
-        criteria: []
     })
+    const [graphs, setGraphs] = useState({})
+    const [criteria, setCriteria] = useState([])
     const [canSubmitReports, setCanSubmitReports] = useState(false)
     const [isPopUpOpen, setPopUpOpen] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState("")
+    const [reset, setReset] = useState(true)
 
     const sendPopUP = (message) => {
         setPopUpMessage(message)
@@ -34,20 +32,35 @@ export const GraphFormProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        const fetchCriteria = async () => {
-            const queryRes = await select_all_criteria()
-
-            if (queryRes) {
-                const withReport = queryRes.map(crit => addReportToCriterion(crit, options.optionsGraphType))
-                setOptions(data => ({
-                        ...data,
-                        criteria: withReport
-                    })
-                )
+        if (reset) {
+            const fetchCriteria = async () => {
+                const queryRes = await select_all_criteria()
+    
+                if (queryRes) {
+                    const withReport = queryRes.map(crit => addReportToCriterion(crit, options.optionsGraphType))
+                    setCriteria(withReport)
+                }
             }
+            fetchCriteria()
+
+            setGraphs({
+                py: "Loading...",
+                js: "Loading..."
+            })
+
+            setOptions(
+                data => ({
+                    ...data,
+                    optionsX: "",
+                    optionsY: "",
+                    optionsSlices: "",
+                    optionsBarData: [],
+                })
+            )
+
+            setReset(false)
         }
-        fetchCriteria()
-    }, [])
+    }, [reset])
 
     const handleChange = async e => {
         const name = e.target.name
@@ -65,6 +78,7 @@ export const GraphFormProvider = ({ children }) => {
                     ...data,
                     [name]: res.data
                 }))
+                setReset(true)
             } else {
                 sendPopUP(res.message)
             }
@@ -80,7 +94,7 @@ export const GraphFormProvider = ({ children }) => {
     const updateSingleCriterion = (e) => {
         const id = e.target.name
         const value = !e.target.checked
-        options.criteria.find(c => c.criterion_id == id).correct = value
+        criteria.find(c => c.criterion_id == id).correct = value
     }
 
     const {
@@ -88,9 +102,7 @@ export const GraphFormProvider = ({ children }) => {
         optionsX,
         optionsY,
         optionsSlices,
-        graphs,
         optionsBarData,
-        criteria,
         ...required
     } = options
 
@@ -142,17 +154,14 @@ export const GraphFormProvider = ({ children }) => {
                 js: responseJS.text.replace("\`\`\`html","").replace("\`\`\`", "").trim()
             }
     
-            setOptions(data => ({
-                ...data,
-                graphs: graphs,
-            }))
+            setGraphs(graphs)
             
             let newCriteria = {
                 ok: false,
                 text: ""
             }
             try {
-                newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs, JSON.stringify(options.criteria)))
+                newCriteria = await gemini_query(queryBuilder.buildQueryCriteriaCheck(graphs, JSON.stringify(criteria)))
             } catch {
                 sendPopUP("Error fetching Gemini response. Please reload.")
             }
@@ -163,10 +172,7 @@ export const GraphFormProvider = ({ children }) => {
             } else {
                 const parsedNewCriteria = JSON.parse(newCriteria.text.replace("\`\`\`json","").replace("\`\`\`", "").trim())
                 if (newCriteria) {
-                    setOptions(data => ({
-                        ...data,
-                        criteria: parsedNewCriteria.map(crit => addReportToCriterion(crit, options.optionsGraphType))
-                    }))
+                    setCriteria(parsedNewCriteria.map(crit => addReportToCriterion(crit, options.optionsGraphType)))
                     setCanSubmitReports(true)
                 }
             }
@@ -176,7 +182,7 @@ export const GraphFormProvider = ({ children }) => {
     }
 
     const onSubmitReports = () => {
-        insert_reports(options.criteria.map(report => stripReportToInsert(report)))
+        insert_reports(criteria.map(report => stripReportToInsert(report)))
         setCanSubmitReports(false)
     }
 
@@ -195,7 +201,9 @@ export const GraphFormProvider = ({ children }) => {
             canSubmitReports,
             isPopUpOpen,
             setPopUpOpen,
-            popUpMessage}}
+            popUpMessage,
+            criteria,
+            graphs}}
         >
             {children}
         </GraphFormContext.Provider>
